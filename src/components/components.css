@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+a {
+  color: rgb(255, 193, 7) !important;
+  text-decoration: none !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lobster", cursive;
+}
+
+/* SIDEBAR STYLES*/
+.sidebar {
+  width: 20%;
+  padding: 0;
+  height: 100vh;
+}
+/* Navbar*/
+.logoFont {
+  font-family: "Lobster", cursive;
+  font-size: 2.5rem;
+}
+
+/*Settings*/
+
+.hideInfo {
+  filter: blur(2.5px);
+}
+.showInfo {
+  filter: blur(0);
+}
+
+/* Home */
+.side {
+  width: 24%;
+  padding: 10px;
+}
+.side-logo {
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  font-size: 5rem;
+  padding: 15px 0px;
+  border-radius: 200px;
+}
+.home-card {
+  cursor: pointer;
+    width: 150px;
+    text-align: center;
+    font-size: 5rem;
+    padding: 30px 0px;
+    border-radius: 200px;
+}
