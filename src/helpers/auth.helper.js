@@ -15,7 +15,7 @@ export const authHelpers = (cookies, removeCookies, navigate) => {
         removeCookies("jwt");
         navigate("/login");
       } else {
-        toast.success(`Merhabalar ${data.name}`, { theme: "dark" });
+        //toast.success(`Merhabalar ${data.name}`, { theme: "dark" });
       }
     }
   };

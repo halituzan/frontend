@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
 a {
   color: rgb(255, 193, 7) !important;
   text-decoration: none !important;
@@ -19,6 +20,7 @@ h6 {
   padding: 0;
   height: 100vh;
 }
+
 /* Navbar*/
 .logoFont {
   font-family: "Lobster", cursive;
@@ -44,14 +46,27 @@ h6 {
   width: 150px;
   text-align: center;
   font-size: 5rem;
-  padding: 15px 0px;
+  padding: 13px 17px 0px 10px;
   border-radius: 200px;
+}
+.side-logo-p {
+  font-family: "Pacifico", cursive;
+}
+.side p {
+  font-family: 'Roboto Slab', serif;
+
 }
 .home-card {
   cursor: pointer;
-    width: 150px;
-    text-align: center;
-    font-size: 5rem;
-    padding: 30px 0px;
-    border-radius: 200px;
+  width: 150px;
+  text-align: center;
+  font-size: 5rem;
+  padding: 15px 0px;
+  border-radius: 200px;
+}
+.home-card a {
+  color: rgb(33, 37, 41) !important;
+}
+.home-card a:hover {
+  color: white !important;
 }

@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
-
 import { AiFillSave, AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { getData } from "../../helpers/db.helpers";
+
 export default function MerchantInfo() {
   const [eye, setEye] = useState(true);
-  const [settingsValue, setSettingsValue] = useState({
-    merchangId: "",
-    apiKey: "",
-    apiSecret: "",
-  });
+  const [settingsValue, setSettingsValue] = useState({});
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.post(
+        "http://localhost:4000/",
+        {},
+        { withCredentials: true }
+      );
+
+      setSettingsValue(data);
+    };
+    getData();
+  }, []);
 
   const handleSettings = () => {
     console.log(settingsValue);
+    getData(settingsValue);
   };
   return (
     <div className="container-fluid">
       <div className="merchant-secret">
         <div className="forms container mt-5">
           <div className="d-flex align-items-center justify-content-between">
-            <h2 className="my-1 fs-3">Mağaza Bilgilerini Girin</h2>
+            <h2 className="my-1 fs-3">Mağaza Bilgileri</h2>
 
             <div className={!eye ? "mx-3 text-success" : "mx-3 text-dark"}>
               {!eye ? (
@@ -35,6 +47,11 @@ export default function MerchantInfo() {
             </div>
           </div>
           <hr />
+          <p>
+            <span className="fw-bold">Api Key</span> ve{" "}
+            <span className="fw-bold">Api Secret</span> değerleri veri tanabında
+            kriptolanmış bir şekilde tutulur.
+          </p>
           <div className="info d-flex">
             <div
               className={
@@ -46,12 +63,13 @@ export default function MerchantInfo() {
               <div className="col-12 my-1 col-md-3">
                 <InputGroup className="d-flex align-items-center">
                   <Form.Control
+                    type="number"
                     placeholder="Merchant ID"
-                    name="merchangId"
+                    name="merchantID"
                     aria-label="Merchant ID"
                     aria-describedby="basic-addon2"
                     readOnly={eye ? "readOnly" : ""}
-                    value={settingsValue.merchangId}
+                    value={settingsValue.merchantID}
                     onChange={(e) =>
                       setSettingsValue({
                         ...settingsValue,
@@ -64,12 +82,13 @@ export default function MerchantInfo() {
               <div className="col-12 my-1 col-md-4">
                 <InputGroup className="d-flex align-items-center">
                   <Form.Control
-                    name="apiKey"
+                    type="text"
+                    name="ApiKey"
                     placeholder="API Key"
                     aria-label="API Key"
                     aria-describedby="basic-addon2"
                     readOnly={eye ? "readOnly" : ""}
-                    value={settingsValue.apiKey}
+                    value={settingsValue.ApiKey}
                     onChange={(e) =>
                       setSettingsValue({
                         ...settingsValue,
@@ -82,12 +101,13 @@ export default function MerchantInfo() {
               <div className="col-12 my-1 col-md-4">
                 <InputGroup className="d-flex align-items-center">
                   <Form.Control
-                    name="apiSecret"
+                    type="text"
+                    name="ApiSecret"
                     placeholder="API Secret"
                     aria-label="API Secret"
                     aria-describedby="basic-addon2"
                     readOnly={eye ? "readOnly" : ""}
-                    value={settingsValue.apiSecret}
+                    value={settingsValue.ApiSecret}
                     onChange={(e) =>
                       setSettingsValue({
                         ...settingsValue,
@@ -101,12 +121,12 @@ export default function MerchantInfo() {
                 <Button
                   variant="outline-secondary d-flex align-items-center bg-warning fw-bold"
                   id="button-addon2"
+                  onClick={() => handleSettings()}
                 >
                   <AiFillSave
-                    onClick={() => handleSettings()}
                     className="text-dark fs-4"
-                  />{" "}
-                  Kaydet
+                    onClick={() => handleSettings()}
+                  />
                 </Button>
               </div>
             </div>
