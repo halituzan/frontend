@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar,NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { authHelpers, logOutHelpers } from "../helpers/auth.helper";
@@ -22,23 +22,30 @@ export default function NavbarMenu() {
   const logOut = () => {
     logOutHelpers(removeCookies, navigate);
   };
+
   return (
+    
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <div className="container">
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Brand href="/" className="logoFont">Entegrenity</Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto d-flex">
-            <Nav.Link href="/settings" className="text-light">
+            <Nav.Link href="/products" className="text-light">
               <AiOutlineBlock className="fs-3 text-warning" /> Ürünler
             </Nav.Link>
-            <Nav.Link href="/settings" className="text-light">
-              <AiOutlineAppstore className="fs-3 text-warning" /> Ürün Grupları
+            <Nav.Link href="/product-groups" className="text-light">
+             
             </Nav.Link>
-            <Nav.Link href="/settings" className="text-light">
-              <AiOutlineAppstoreAdd className="fs-3 text-warning" /> Ürün Grubu
-              Oluştur
-            </Nav.Link>
+            <NavDropdown title={<div  style={{display: "inline-block"}}><AiOutlineAppstore className="fs-3 text-warning"/> Ürün Grupları</div>} id="basic-nav-dropdown" className="bg-dark">
+              <NavDropdown.Item href="/create-group" className="text-dark"><AiOutlineAppstoreAdd className="fs-3 text-dark " /> Ürün Grubu
+              Oluştur</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/product-groups" className="text-dark">
+              <AiOutlineAppstore className="fs-3 text-dark" /> Ürün Grupları
+              </NavDropdown.Item>
+              
+            </NavDropdown>
             <Nav.Link href="/settings" className="text-light">
               <AiOutlineCalculator className="fs-3 text-warning" /> Karlılık
             </Nav.Link>
