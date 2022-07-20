@@ -13,8 +13,10 @@ export default function Settings() {
     authHelpers(cookies, removeCookies, navigate);
   }, [cookies, navigate, removeCookies]);
 
-  return <div>
-    <NavbarMenu/>
-    <SettingForms/>
-  </div>;
+  return (
+    <div>
+      <NavbarMenu />
+      <SettingForms />
+    </div>
+  );
 }
