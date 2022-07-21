@@ -1,89 +1,102 @@
 td {
-    border-bottom: none !important;
+  border-bottom: none !important;
+}
+a {
+  text-decoration: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Sidebar */
+.sidebar-wrapper {
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+.logo {
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+}
+.icon-size,
+.icon-size-save {
+  font-size: 2rem;
+}
+.icon-size-save:hover {
+  color: rgb(13, 110, 253);
+}
+.product-image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+.table-title th {
+  border: none;
+}
+.table-body {
+  border-bottom: 1px solid grey;
+}
+.warn {
+  position: fixed;
+  z-index: 9999;
+  text-align: center;
+  padding: 10px 10px 0px 10px;
+  color: white;
+  font-weight: bold;
+  right: 60px;
+  top: 10px;
+  background-color: red;
+  animation: warnBackground 4s linear;
+  animation-fill-mode: both;
+}
+@keyframes warnBackground {
+  0% {
+    opacity: 1;
   }
-  a {
-    text-decoration: none;
+  50% {
+    opacity: 1;
   }
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  100% {
+    opacity: 0;
   }
-  
-  /* Firefox */
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-  
-  /* Sidebar */
-  .sidebar-wrapper {
-    width: 100%;
-    position: sticky;
-    top: 0;
-  }
-  .logo {
-    text-align: center;
-    color: white;
-    font-size: 2rem;
-  }
-  .icon-size,
-  .icon-size-save {
-    font-size: 2rem;
-  }
-  .icon-size-save:hover {
-    color: rgb(13, 110, 253);
-  }
-  .product-image {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-  }
-  .table-title th {
-    border: none;
-  }
-  .table-body {
-    border-bottom: 1px solid grey;
-  }
-  .warn {
-    position: fixed;
-    z-index: 9999;
-    text-align: center;
-    padding: 10px 10px 0px 10px;
-    color: white;
-    font-weight: bold;
-    right: 60px;
-    top: 10px;
-    background-color: red;
-    animation: warnBackground 4s linear;
-    animation-fill-mode: both;
-  }
-  @keyframes warnBackground {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  .hideInfo {
-    filter: blur(2.5px);
-  }
-  .showInfo {
-    filter: blur(0);
-  }
-  
-  
-  /* Stats */
-  
-  
-  
-  
-  .yil-stat,.ay-stat,.gun-stat{
-    transition: --num 3s;
-    font: 800 40px system-ui;
-  }
-  
+}
+.hideInfo {
+  filter: blur(2.5px);
+}
+.showInfo {
+  filter: blur(0);
+}
+
+/* Stats */
+
+.yil-stat,
+.ay-stat,
+.gun-stat {
+  transition: --num 3s;
+  font: 800 40px system-ui;
+}
+
+/*Form Check*/
+.form-check-input:checked {
+  background-color: rgb(255, 193, 7) !important;
+  border-color: rgb(255, 193, 7) !important;
+}
+.form-check-input:focus {
+  border-color: #ffc720;
+  box-shadow: 0 0 0 0.25rem rgb(217 164 6 / 50%);
+}
+.form-switch .form-check-input {
+  background-image: url("data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27><circle r=%273%27 fill=%27%23ffc720%27/></svg>");
+}
+.form-switch .form-check-input:focus {
+  background-image: url("data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27><circle r=%273%27 fill=%27%23212529%27/></svg>");
+}

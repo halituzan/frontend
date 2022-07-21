@@ -25,7 +25,7 @@ export default function NavbarMenu() {
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="nav-menu">
       <div className="container">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Brand href="/" className="logoFont">

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, InputGroup, Accordion } from "react-bootstrap";
 import { AiFillSave, AiFillLock, AiFillUnlock } from "react-icons/ai";
-import { getData, getId } from "../../helpers/db.helpers";
+import { setMerchantData, getData } from "../../helpers/db.helpers";
 import { parseJwt } from "../../helpers/jwt.helpers";
 import { useCookies } from "react-cookie";
-import "../components.css"
+import "../components.css";
 export default function MerchantInfo() {
   const [eye, setEye] = useState(true);
   const [lock, setLock] = useState(true);
@@ -13,11 +13,13 @@ export default function MerchantInfo() {
   const [cookies, setCookie] = useCookies();
   const token = cookies.jwt;
   useEffect(() => {
-    getId(parseJwt(token).id, setSettingsValue);
+    if (token) {
+      getData(parseJwt(token).id, setSettingsValue);
+    }
   }, []);
 
   const sendData = () => {
-    getData(settingsValue);
+    setMerchantData(settingsValue);
   };
 
   const onLock = () => {
@@ -90,6 +92,7 @@ export default function MerchantInfo() {
                       <Form.Control
                         type="text"
                         name="ApiKey"
+                        defaultValue=""
                         placeholder="API Key"
                         aria-label="API Key"
                         aria-describedby="basic-addon2"
@@ -114,6 +117,7 @@ export default function MerchantInfo() {
                     <InputGroup className="d-flex align-items-center">
                       <Form.Control
                         type="text"
+                        defaultValue=""
                         name="ApiSecret"
                         placeholder="API Secret"
                         aria-label="API Secret"

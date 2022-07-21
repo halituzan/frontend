@@ -1,9 +1,9 @@
 import React from "react";
 import { ToastContainer, Flip } from "react-toastify";
 import NavbarMenu from "../components/NavbarMenu";
-import Home from "../components/Home";
 import "./pages.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Home from "../components/home/Home";
 
 export default function Dashboard() {
   return (

@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { authHelpers } from "../helpers/auth.helper";
 import { useNavigate } from "react-router-dom";
 import NavbarMenu from "../components/NavbarMenu";
+import ProductGroup from "../components/groups/ProductGroup";
 
 export default function ProductGroups() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function ProductGroups() {
   return (
     <div className="d-flex flex-column">
       <NavbarMenu />
-      ProductGroups
+      <ProductGroup/>
     </div>
   );
 }

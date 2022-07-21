@@ -2,16 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./components.css";
+import "../components.css";
 import {
   AiOutlineBlock,
   AiOutlineAppstore,
   AiOutlineCalculator,
   AiFillRocket,
 } from "react-icons/ai";
-import { parseJwt } from "../helpers/jwt.helpers";
+import { parseJwt } from "../../helpers/jwt.helpers";
 import { useCookies } from "react-cookie";
-import { getId } from "../helpers/db.helpers";
+import { getData } from "../../helpers/db.helpers";
 
 const Home = () => {
   const [cards, setCard] = useState(false);
@@ -19,7 +19,7 @@ const Home = () => {
   const [cookies, setCookie] = useCookies();
   const token = cookies.jwt;
   useEffect(() => {
-    getId(parseJwt(token).id, setData);
+    getData(parseJwt(token).id, setData);
   }, []);
 
   return (

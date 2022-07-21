@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Accordion, Form, Button } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { getId } from "../../helpers/db.helpers";
+import { getData } from "../../helpers/db.helpers";
 import { parseJwt } from "../../helpers/jwt.helpers";
 import "../components.css";
 import { FaMedal } from "react-icons/fa";
@@ -12,7 +12,7 @@ export default function UserInfo() {
   const token = cookies.jwt;
 
   useEffect(() => {
-    getId(parseJwt(token).id, setData);
+    getData(parseJwt(token).id, setData);
   }, []);
 
   console.log(data);
@@ -30,14 +30,25 @@ export default function UserInfo() {
                 <div className="row">
                   <div className="col-12 col-md-6 user-key d-flex flex-column">
                     <div className="user-role align-self-center my-3 d-flex justify-content-center flex-column align-items-center">
-                      <h2 style={{fontFamily:"Roboto Slab, serif",color:"#212529",fontSize:"1.9rem"}}>Silver Üye</h2>
-                      {data.userRole !== "silver" ? <FaMedal  style={{fontSize:"10rem",color:"#ffa40b"}}/> : <FaMedal style={{fontSize:"10rem",color:"#c0c0c0"}}/>}
+                      <h2
+                        style={{
+                          fontFamily: "Roboto Slab, serif",
+                          color: "#212529",
+                          fontSize: "1.9rem",
+                        }}
+                      >
+                        Silver Üye
+                      </h2>
+                      {data.userRole !== "silver" ? (
+                        <FaMedal
+                          style={{ fontSize: "10rem", color: "#ffa40b" }}
+                        />
+                      ) : (
+                        <FaMedal
+                          style={{ fontSize: "10rem", color: "#c0c0c0" }}
+                        />
+                      )}
                     </div>
-                    {/* <div className="user-key">
-                      <p>Ad: {data.name?.toUpperCase()}</p>
-                      <p>Soy Ad: {data.surname?.toUpperCase()}</p>
-                      <p>Email: {data.email}</p>
-                    </div> */}
                   </div>
                   <div className="col-12 col-md-6">
                     <Form>

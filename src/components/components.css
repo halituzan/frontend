@@ -22,15 +22,20 @@ h6 {
 }
 
 /* Navbar*/
+.nav-menu {
+  position: sticky !important;
+  top: 0;
+  z-index: 99999;
+}
 .logoFont {
   font-family: "Lobster", cursive;
-  font-size: 2em!important;
+  font-size: 2em !important;
 }
-.nav-icon:hover{
-  color: white!important;
+.nav-icon:hover {
+  color: white !important;
 }
-.dropdown-toggle::after{
-  display: none!important;
+.dropdown-toggle::after {
+  display: none !important;
 }
 /*Settings*/
 
@@ -40,11 +45,11 @@ h6 {
 .showInfo {
   filter: blur(0);
 }
-.accordion-collapse{
+.accordion-collapse {
   width: 100%;
 }
-.user-key p{
-font-weight: bold;
+.user-key p {
+  font-weight: bold;
 }
 
 /* Home */
@@ -105,10 +110,17 @@ font-weight: bold;
 
 /*Products*/
 
-
 @media only screen and (max-width: 768px) {
-  .products-thead{
-  display: none;
+  .products-thead {
+    display: none;
   }
-  
+}
+
+/*Groups*/
+
+.remove-group-item {
+  cursor: pointer;
+}
+.image-info img {
+ width: 100px;
 }
