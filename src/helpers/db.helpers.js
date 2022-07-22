@@ -27,16 +27,11 @@ export const setGroupData = async (id, group) => {
     { withCredentials: true }
   );
 };
-export const updateGroupData = async (values, id, index) => {
-  console.log(values.groups[index])
+export const updateGroupItems = async (values) => {
   await axios.put(
-    `http://localhost:4000/update-groups/${values._id}/${index}`,
+    `http://localhost:4000/update-groups/${values._id}`,
     {
-      groups: {
-        listPrice: values.groups[index].listPrice,
-        salePrice: values.groups[index].salePrice,
-        quantity: values.groups[index].quantity,
-      },
+      groups: values.groups,
     },
     { withCredentials: true }
   );
