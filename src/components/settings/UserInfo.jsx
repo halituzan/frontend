@@ -30,15 +30,28 @@ export default function UserInfo() {
                 <div className="row">
                   <div className="col-12 col-md-6 user-key d-flex flex-column">
                     <div className="user-role align-self-center my-3 d-flex justify-content-center flex-column align-items-center">
-                      <h2
-                        style={{
-                          fontFamily: "Roboto Slab, serif",
-                          color: "#212529",
-                          fontSize: "1.9rem",
-                        }}
-                      >
-                        Silver Üye
-                      </h2>
+                      {data.userRole !== "silver" ? (
+                        <h2
+                          style={{
+                            fontFamily: "Roboto Slab, serif",
+                            color: "#212529",
+                            fontSize: "1.9rem",
+                          }}
+                        >
+                          Gold Üye
+                        </h2>
+                      ) : (
+                        <h2
+                          style={{
+                            fontFamily: "Roboto Slab, serif",
+                            color: "#212529",
+                            fontSize: "1.9rem",
+                          }}
+                        >
+                          Silver Üye
+                        </h2>
+                      )}
+
                       {data.userRole !== "silver" ? (
                         <FaMedal
                           style={{ fontSize: "10rem", color: "#ffa40b" }}

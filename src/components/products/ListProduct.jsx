@@ -6,16 +6,13 @@ import { Flip, toast, ToastContainer } from "react-toastify";
 import { fakeData } from "../../fakeData";
 import "./products.css";
 
-
 import { Button } from "react-bootstrap";
 import ProductGroupModal from "./ProductGroupModal";
 
 export default function ListProduct() {
   const content = fakeData.content;
   const [deger, setDeger] = useState(content);
-
   const [groupValue, setGroupValue] = useState();
-
 
   const changePrice = (e, index) => {
     const value = e.value;
@@ -55,9 +52,7 @@ export default function ListProduct() {
   const isTheGroupClosed = (index) => {
     setDeger((datas) =>
       datas.map((d, i) => {
-        
         if (index === i) {
-          console.log(d);
           return { ...d, isTheGroup: false };
         } else {
           return { ...d, isTheGroup: false };
@@ -66,7 +61,7 @@ export default function ListProduct() {
     );
   };
   const groupHandle = (e) => {
-    setGroupValue(e.target.value);
+    //setGroupValue(e.target.value);
   };
 
   const sendData = (index) => {
@@ -79,7 +74,7 @@ export default function ListProduct() {
   };
 
   return (
-    <div className="container-fluid d-flex flex-column m-auto">
+    <div className="container d-flex flex-column m-auto">
       <div className="pagination d-flex justify-content-between"></div>
 
       <Table className="mt-3">
@@ -122,11 +117,11 @@ export default function ListProduct() {
                 <td className="col-4 col-lg-2 align-self-center text-break">
                   {p.barcode}
                 </td>
-                <td className="col-4 col-lg-1 align-self-center text-break">
+                <td className="col-4 col-lg-1 align-self-center text-break p-3">
                   <img
                     src={p.images[0].url ? p.images[0].url : p.images[1].url}
                     alt={p.title}
-                    className="product-image"
+                    className="w-100"
                   />
                 </td>
                 <td className="col-4 col-lg-1 align-self-center text-break">
@@ -182,11 +177,13 @@ export default function ListProduct() {
                   />
                 </td>
                 <td className="col-12 col-lg-1 align-self-center text-break color-success">
-                  <AiOutlineSave
-                    className="icon-size-save"
-                    style={{ cursor: "pointer" }}
-                    onClick={(e) => sendData(index)}
-                  />
+                  <Button variant="success" onClick={(e) => sendData(index)}>
+                    <AiOutlineSave
+                      className="icon-size-save"
+                      style={{ cursor: "pointer" }}
+                      onClick={(e) => sendData(index)}
+                    />
+                  </Button>
                 </td>
               </tr>
             );

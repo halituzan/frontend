@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown, Badge } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { authHelpers, logOutHelpers } from "../helpers/auth.helper";
@@ -25,23 +25,41 @@ export default function NavbarMenu() {
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="nav-menu">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+      className="nav-menu"
+    >
       <div className="container">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Brand href="/" className="logoFont">
+        <Navbar.Brand href="/" className="logoFont d-flex">
           Entegrenity
+          {/* <Badge bg="none" className="text-danger">
+            Beta
+          </Badge> */}
         </Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto d-flex">
-            <Nav.Link href="/products" className="text-light d-flex justify-content-center align-items-center ">
+            <Nav.Link
+              href="/products"
+              className="text-light d-flex justify-content-center align-items-center "
+            >
               <AiOutlineBlock className="fs-3 nav-icon text-warning" /> Ürünler
             </Nav.Link>
-            <Nav.Link href="/product-groups" className="text-light d-flex justify-content-center align-items-center "></Nav.Link>
+            <Nav.Link
+              href="/product-groups"
+              className="text-light d-flex justify-content-center align-items-center "
+            ></Nav.Link>
             <NavDropdown
               title={
-                <div className="text-light d-flex justify-content-center align-items-center " style={{ display: "inline-block" }}>
-                  <AiOutlineAppstore className="fs-3 nav-icon text-warning" /> Ürün
-                  Grupları
+                <div
+                  className="text-light d-flex justify-content-center align-items-center "
+                  style={{ display: "inline-block" }}
+                >
+                  <AiOutlineAppstore className="fs-3 nav-icon text-warning" />{" "}
+                  Ürün Grupları
                 </div>
               }
               id="basic-nav-dropdown"
@@ -57,11 +75,19 @@ export default function NavbarMenu() {
                 Ürün Grupları
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/settings" className="text-light d-flex justify-content-center align-items-center ">
-              <AiOutlineCalculator className="fs-3 text-warning nav-icon" /> Karlılık
+            <Nav.Link
+              href="/settings"
+              className="text-light d-flex justify-content-center align-items-center "
+            >
+              <AiOutlineCalculator className="fs-3 text-warning nav-icon" />{" "}
+              Karlılık
             </Nav.Link>
-            <Nav.Link href="/settings" className="text-light d-flex justify-content-center align-items-center ">
-              <AiFillRocket className="fs-3 text-warning nav-icon" /> Fiyat Rekabeti
+            <Nav.Link
+              href="/settings"
+              className="text-light d-flex justify-content-center align-items-center "
+            >
+              <AiFillRocket className="fs-3 text-warning nav-icon" /> Fiyat
+              Rekabeti
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

@@ -124,3 +124,6 @@ h6 {
 .image-info img {
  width: 100px;
 }
+.not-found-title{
+  font-size:calc(4rem + 1.5vw)!important;
+}

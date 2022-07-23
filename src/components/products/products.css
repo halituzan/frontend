@@ -32,11 +32,11 @@ input[type="number"] {
   font-size: 2rem;
 }
 .icon-size-save:hover {
-  color: rgb(13, 110, 253);
+  color: white;
 }
 .product-image {
-  width: 64px;
-  height: 64px;
+  width: 180px;
+  height: 120px;
   object-fit: cover;
 }
 .table-title th {
@@ -99,4 +99,13 @@ input[type="number"] {
 }
 .form-switch .form-check-input:focus {
   background-image: url("data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27><circle r=%273%27 fill=%27%23212529%27/></svg>");
+}
+
+.form-check-input-check:checked{
+  background-color: rgb(25, 135, 84) !important;
+  border-color: rgb(25, 135, 84) !important;
+}
+.form-check-input-check:focus{
+  border-color:rgb(25, 135, 84);
+  box-shadow: 0 0 0 0.25rem rgb(25 135 84 / 40%);
 }

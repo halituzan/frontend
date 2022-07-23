@@ -6,6 +6,7 @@ import { Button, Form } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import { getData, setGroupData } from "../helpers/db.helpers";
 import { parseJwt } from "../helpers/jwt.helpers";
+import { Flip, toast, ToastContainer } from "react-toastify";
 
 export default function CreateGroup() {
   const refreshPage = () => {
@@ -31,10 +32,15 @@ export default function CreateGroup() {
 
   const sendData = (e) => {
     e.preventDefault();
-    setGroupData(parseJwt(token).id, group);
-    refreshPage();
+    if (e.currentTarget[0].value === "")
+      return toast.error("Ürün grubu ismi girmelisiniz.");
+    else if (e.currentTarget[1].value === "")
+      toast.error("En az 1 Barkod girmeniz gerekiyor");
+    else {
+      setGroupData(parseJwt(token).id, group);
+      refreshPage();
+    }
   };
-  console.log(group);
   return (
     <div>
       <NavbarMenu />
@@ -68,7 +74,7 @@ export default function CreateGroup() {
                 </span>
               </Form.Text>
             </Form.Group>
-            <h2 className="text-center mb-0 text-dark">Manuel Barkod Girişi</h2>
+            <h2 className="text-center mb-0 text-dark">Barkod Girişi</h2>
             <hr className="w-100 bg-dark my-0" />
 
             <Form.Group className="mb-3 mt-0">
@@ -81,14 +87,10 @@ export default function CreateGroup() {
                 onChange={(e) => {
                   setGroup({ ...group, [e.target.name]: e.target.value });
                 }}
-                // onChange={(e) =>
-                //   setGroup({ ...settingsValue, [e.target.name]: e.target.value })
-                // }
               />
               <Form.Text className="text-dark text-center">
-                Dilerseniz manuel olarak bu kısımdan ürünlerinizin barkodlarını
-                ekleyebilirsiniz. Her bir barkodu virgün ile ayırarak ve boşluk
-                olmadan giriniz.
+                En az 1 Barkod gilmelisiniz. Her bir barkodu virgül ile ayırarak
+                ve boşluk olmadan giriniz.
               </Form.Text>
               <Form.Text className="text-muted">
                 <span className="fw-bold">Örnek:</span>{" "}
@@ -104,6 +106,15 @@ export default function CreateGroup() {
           </Form>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        theme="dark"
+        transition={Flip}
+      />
     </div>
   );
 }
