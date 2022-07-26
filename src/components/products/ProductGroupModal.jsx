@@ -121,7 +121,7 @@ const ProductGroupModal = (props) => {
 
       <Modal.Footer>
         <Button variant="warning" onClick={() => addGroups()}>
-          Ürünleri Grupla
+          Ürünleri Grupla / Çıkar
         </Button>
         <Button variant="dark" onClick={() => props.onHide(index)}>
           Kapat
