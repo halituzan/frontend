@@ -8,24 +8,24 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { fakeData } from "../../fakeData";
 import { getData, updateGroupItems } from "../../helpers/db.helpers";
 import { parseJwt } from "../../helpers/jwt.helpers";
 import { AiFillSave, AiFillCloseCircle, AiFillDelete } from "react-icons/ai";
 import GroupDeleteModal from "./GroupDeleteModal";
 import GroupsNotFound from "./GroupsNotFound";
-
-const { content } = fakeData;
+import { fetchData } from "../../helpers/restApi.helpers";
 
 export default function ProductGroupList() {
   /* -------- Statets -------- */
 
   const [values, setValue] = useState({});
+  const [datas, setDatas] = useState([]);
   const [runRemove, setRunRemove] = useState(true);
   const [show, setShow] = useState(false);
   const [cookies, setCookie] = useCookies();
   const { groups } = values;
-
+  console.log(values);
+  console.log(datas);
   /* -------- End of Statets -------- */
 
   /* -------- Hooks -------- */
@@ -35,8 +35,11 @@ export default function ProductGroupList() {
     if (token) {
       getData(parseJwt(token).id, setValue);
     }
+    fetchData(values, setDatas);
   }, []);
-
+  useEffect(() => {
+    fetchData(values, setDatas);
+  }, [values]);
   useEffect(() => {
     updateGroupItems(values);
   }, [runRemove, groups, values]);
@@ -148,8 +151,11 @@ export default function ProductGroupList() {
                   <br />- Lütfen bunu göz önüne alarak işlem yapın.
                   <br />- Gruba eklenmiş yanlış ürün varsa güncelleme işlemini
                   ürünü kaldırdıktan sonra yapın.
-                  <br /> <span className="fw-bold text-danger fs-5">- Gruptaki son ürünü gruptan çıkartırsanız ürün grubu
-                  otomatik olarak silinir.</span>
+                  <br />{" "}
+                  <span className="fw-bold text-danger fs-5">
+                    - Gruptaki son ürünü gruptan çıkartırsanız ürün grubu
+                    otomatik olarak silinir.
+                  </span>
                 </p>
               </p>
 
@@ -223,7 +229,7 @@ export default function ProductGroupList() {
                     className="col-12 d-flex flex-column justify-content-between"
                     key={indi}
                   >
-                    {content
+                    {datas?.content
                       ?.filter((p, i) => p.barcode === b)
                       ?.map((items, ind) => (
                         <div
