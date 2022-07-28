@@ -1,10 +1,11 @@
-import React from 'react'
-import AdminNav from './AdminNav'
+import React from "react";
+
+import AdminNav from "./AdminNav";
 
 export default function Users() {
   return (
     <div>
-        <AdminNav/>
+      <AdminNav />
     </div>
-  )
+  );
 }
