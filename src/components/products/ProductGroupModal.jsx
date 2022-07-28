@@ -67,8 +67,8 @@ const ProductGroupModal = (props) => {
       <Modal.Body>
         <div className="product d-flex justify-content-center align-items-center">
           <img
-            src={data.images[0].url ? data.images[0].url : data.images[1].url}
-            alt={data.title}
+            src={data?.images[0]?.url ? data?.images[0]?.url : data?.images[1]?.url}
+            alt={data?.title}
             width="64px"
             className="mx-4 align-self-baseline"
           />
