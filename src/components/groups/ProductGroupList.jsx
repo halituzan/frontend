@@ -35,10 +35,10 @@ export default function ProductGroupList() {
     if (token) {
       getData(parseJwt(token).id, setValue);
     }
-    fetchData(values, setDatas);
+    fetchData(values, setDatas,0,2500);
   }, []);
   useEffect(() => {
-    fetchData(values, setDatas);
+    fetchData(values, setDatas,0,2500);
   }, [values]);
   useEffect(() => {
     updateGroupItems(values);

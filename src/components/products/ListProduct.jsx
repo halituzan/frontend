@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AiOutlineSave } from "react-icons/ai";
+import { AiOutlineSave, AiOutlineSearch } from "react-icons/ai";
 import { FaLayerGroup } from "react-icons/fa";
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "./products.css";
@@ -8,38 +8,40 @@ import ProductGroupModal from "./ProductGroupModal";
 import PaginationList from "../PaginationList";
 import { Puff } from "react-loading-icons";
 import { fetchData } from "../../helpers/restApi.helpers";
-import { secret } from "../../helpers/keys";
 import { getData } from "../../helpers/db.helpers";
 import { parseJwt } from "../../helpers/jwt.helpers";
 import { useCookies } from "react-cookie";
+import Paginations from "../Paginations";
 export default function ListProduct() {
+  const [cookies, setCookie] = useCookies();
   const [searchBarcode, setSearchBarcode] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
   const [datas, setDatas] = useState({});
+  const [searchData, setSearchData] = useState(null);
   const [deger, setDeger] = useState({});
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [cookies, setCookie] = useCookies();
+  const [size, setSize] = useState(10);
 
-  console.log(page);
   const token = cookies.jwt;
   useEffect(() => {
     if (token) {
       getData(parseJwt(token).id, setDatas);
     }
-    fetchData(datas, setDeger, page);
+    fetchData(datas, setDeger, page, size);
   }, []);
   useEffect(() => {
-    fetchData(datas, setDeger, page);
-  }, [datas, page]);
-
+    fetchData(datas, setDeger, page, size);
+  }, [datas, page, size]);
+  // useEffect(() => {
+  //   fetchData(datas, setSearchData, 0, 2500);
+  // }, [searchBarcode, searchTitle]);
   useEffect(() => {
     setLoading(false);
-    console.log(datas);
   }, [datas, deger]);
+
   const changePrice = (e, barcode) => {
     const value = e.value;
-
     setDeger({
       ...deger,
       content: deger.content.map((d) => {
@@ -50,17 +52,8 @@ export default function ListProduct() {
         }
       }),
     });
-
-    // setDeger((datas) =>
-    //   datas?.content.map((d, i) => {
-    //     if (index === i) {
-    //       return { ...d, [e.name]: parseFloat(value) };
-    //     } else {
-    //       return { ...d, [e.name]: d[e.name] };
-    //     }
-    //   })
-    // );
   };
+
   const editedEnable = (barcode) => {
     setDeger({
       ...deger,
@@ -72,16 +65,6 @@ export default function ListProduct() {
         }
       }),
     });
-
-    // setDeger((datas) =>
-    //   datas?.content.map((d, i) => {
-    //     if (barcode === d.barcode) {
-    //       return { ...d, isEdited: true };
-    //     } else {
-    //       return { ...d, isEdited: false };
-    //     }
-    //   })
-    // );
   };
   const isTheGroup = (barcode) => {
     setDeger({
@@ -100,7 +83,7 @@ export default function ListProduct() {
       ...deger,
       content: deger.content.map((d) => {
         if (barcode === d.barcode) {
-          return { ...d, isTheGroup: true };
+          return { ...d, isTheGroup: false };
         } else {
           return { ...d, isTheGroup: false };
         }
@@ -111,7 +94,9 @@ export default function ListProduct() {
   const sendData = (barcode, index) => {
     deger?.content.map((d) => {
       if (barcode === d.barcode) {
-        if (deger?.content[index].listPrice < deger?.content[index].salePrice) {
+        if (
+          deger?.content[index]?.listPrice < deger?.content[index]?.salePrice
+        ) {
           toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
         } else {
           console.log("Data Gönderildi");
@@ -119,23 +104,61 @@ export default function ListProduct() {
         }
       }
     });
-    // old version
-    // if (deger[index].listPrice < deger[index].salePrice) {
-    //   toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
-    // } else {
-    //   console.log("Data Gönderildi");
-    //   console.log(deger);
-    // }
   };
 
   return (
     <div className="container d-flex flex-column m-auto">
-      <div className="pagination-list d-flex justify-content-center align-items-center mt-5">
-        <PaginationList
-          totalPages={deger.totalPages}
-          nowPage={deger.page}
-          setPage={setPage}
-        />
+      {/* 
+      <div className="row mt-5">
+        <div className="col-12 col-sm-5">
+          <InputGroup className="mb-3">
+            <Form.Control
+              readOnly
+              placeholder="Başlık İle Arama"
+              name="searchTitle"
+              aria-label="search"
+              aria-describedby="basic-addon1"
+              value={searchTitle}
+              onChange={(e) => setSearchTitle(e.target.value.toLowerCase())}
+            />
+          </InputGroup>
+        </div>
+        <div className="col-12 col-sm-5">
+          <InputGroup className="mb-3">
+            <Form.Control
+              readOnly
+              placeholder="Barkod ile Arama"
+              aria-label="search"
+              name="searchBarcode"
+              aria-describedby="basic-addon1"
+              value={searchBarcode}
+              onChange={(e) => setSearchBarcode(e.target.value.toLowerCase())}
+            />
+          </InputGroup>
+        </div>
+        
+      </div> */}
+      <div className="row pagination-list d-flex justify-content-between align-items-center mt-2">
+        <div className="col-2 align-self-end">
+          <Button variant="warning" className="bg-warning">
+            <AiOutlineSearch
+              className="icon-size-save fs-3"
+              style={{ cursor: "pointer" }}
+            />
+          </Button>
+        </div>
+        <div className="col-6 d-flex flex-column">
+          <span className="align-self-end">
+            Sayfa Sayısı:{deger.totalPages}{" "}
+          </span>
+          <Paginations
+            totalPages={deger.totalPages}
+            setPage={setPage}
+            pages={page}
+            setSize={setSize}
+            size={size}
+          />
+        </div>
       </div>
 
       {loading ? (
@@ -144,35 +167,7 @@ export default function ListProduct() {
         </p>
       ) : (
         <Table className="mt-3">
-          <thead className="row">
-            <tr className="col-12 col-sm-6">
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Başlık İle Arama"
-                  name="search"
-                  aria-label="search"
-                  aria-describedby="basic-addon1"
-                  value={searchTitle}
-                  onChange={(e) => setSearchTitle(e.target.value.toLowerCase())}
-                />
-              </InputGroup>
-            </tr>
-            <tr className="col-12 col-sm-6">
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Barkod ile Arama"
-                  name="search"
-                  aria-label="search"
-                  aria-describedby="basic-addon1"
-                  value={searchBarcode}
-                  onChange={(e) =>
-                    setSearchBarcode(e.target.value.toLowerCase())
-                  }
-                />
-              </InputGroup>
-            </tr>
-          </thead>
-          <tbody className="products-thead">
+          <thead className="products-thead">
             <tr className="row text-center table-title d-flex justify-content-center align-items-center">
               <th className="col-12 col-sm-3">Başlık</th>
               <th className="col-12 col-sm-2">Grupla</th>
@@ -183,23 +178,23 @@ export default function ListProduct() {
               <th className="col-12 col-sm-1">Satış Fiyatı</th>
               <th className="col-12 col-sm-1">Kaydet</th>
             </tr>
-          </tbody>
+          </thead>
 
           <tbody>
             {deger?.content
-              ?.filter((st) => {
-                if (searchTitle !== "") {
-                  return st?.title.toLowerCase().includes(searchTitle);
-                }
-                return st;
-              })
-              .filter((sb) => {
-                if (searchBarcode !== "") {
-                  return sb?.barcode.toLowerCase().includes(searchBarcode);
-                }
-                return sb;
-              })
-              .map((p, index) => {
+              // ?.filter((st) => {
+              //     if (searchTitle !== "") {
+              //       return st?.title.toLowerCase().includes(searchTitle);
+              //     }
+              //     return st;
+              //   })
+              //   .filter((sb) => {
+              //     if (searchBarcode !== "") {
+              //       return sb?.barcode.toLowerCase().includes(searchBarcode);
+              //     }
+              //     return sb;
+              //   })
+              ?.map((p, index) => {
                 return (
                   <tr
                     key={index}
@@ -247,16 +242,16 @@ export default function ListProduct() {
                         name="quantity"
                         max="20000"
                         min="0"
-                        id={deger?.content[index].stockId}
+                        id={deger?.content[index]?.stockId}
                         value={
-                          deger?.content[index].quantity > 20000
+                          deger?.content[index]?.quantity > 20000
                             ? 20000
-                            : deger?.content[index].quantity
+                            : deger?.content[index]?.quantity
                         }
                         onChange={(e) => changePrice(e.target, p.barcode)}
                         onClick={() => editedEnable(p.barcode)}
                         readOnly={
-                          deger?.content[index].isEdited ? "" : "readOnly"
+                          deger?.content[index]?.isEdited ? "" : "readOnly"
                         }
                         className="form-control"
                       />
@@ -265,17 +260,17 @@ export default function ListProduct() {
                       <input
                         type="number"
                         name="listPrice"
-                        id={deger?.content[index].platformListingId}
-                        value={deger?.content[index].listPrice}
+                        id={deger?.content[index]?.platformListingId}
+                        value={deger?.content[index]?.listPrice}
                         onChange={(e) => changePrice(e.target, p.barcode)}
                         onClick={() => editedEnable(p.barcode)}
                         readOnly={
-                          deger?.content[index].isEdited ? "" : "readOnly"
+                          deger?.content[index]?.isEdited ? "" : "readOnly"
                         }
                         className="form-control"
                         style={
-                          deger?.content[index].listPrice >=
-                          deger?.content[index].salePrice
+                          deger?.content[index]?.listPrice >=
+                          deger?.content[index]?.salePrice
                             ? { borderColor: "" }
                             : { borderColor: "red" }
                         }
@@ -285,17 +280,17 @@ export default function ListProduct() {
                       <input
                         type="number"
                         name="salePrice"
-                        id={deger?.content[index].id}
-                        value={deger?.content[index].salePrice}
+                        id={deger?.content[index]?.id}
+                        value={deger?.content[index]?.salePrice}
                         onChange={(e) => changePrice(e.target, p.barcode)}
                         onClick={() => editedEnable(p.barcode)}
                         readOnly={
-                          deger?.content[index].isEdited ? "" : "readOnly"
+                          deger?.content[index]?.isEdited ? "" : "readOnly"
                         }
                         className="form-control"
                         style={
-                          deger?.content[index].listPrice >=
-                          deger?.content[index].salePrice
+                          deger?.content[index]?.listPrice >=
+                          deger?.content[index]?.salePrice
                             ? { borderColor: "" }
                             : { borderColor: "red" }
                         }
@@ -319,7 +314,16 @@ export default function ListProduct() {
           </tbody>
         </Table>
       )}
-
+      <div className="col-12 mb-5 d-flex flex-column bottom-pagination">
+        <p className="align-self-end">Sayfa Sayısı:{deger.totalPages - 1} </p>
+        <Paginations
+          totalPages={deger.totalPages}
+          setPage={setPage}
+          pages={page}
+          setSize={setSize}
+          size={size}
+        />
+      </div>
       <ToastContainer
         position="bottom-right"
         autoClose={2000}

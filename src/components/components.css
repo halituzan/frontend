@@ -110,7 +110,7 @@ h6 {
 
 /*Products*/
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   .products-thead {
     display: none;
   }
@@ -122,8 +122,30 @@ h6 {
   cursor: pointer;
 }
 .image-info img {
- width: 100px;
+  width: 100px;
 }
-.not-found-title{
-  font-size:calc(4rem + 1.5vw)!important;
+.not-found-title {
+  font-size: calc(4rem + 1.5vw) !important;
+}
+
+/* Pagination */
+
+.double-left {
+  margin-left: -21px;
+  filter: drop-shadow(-2px 0px 0px #f1c40f);
+}
+.double-right {
+  margin-right: -21px;
+  filter: drop-shadow(2px 0px 0px #f1c40f);
+}
+@media only screen and (max-width: 1024px) {
+  .double-arrow {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+  .page-now {
+    background-color: white;
+    border: none !important;
+  }
 }

@@ -3,35 +3,47 @@ import { useEffect } from "react";
 import { Pagination } from "react-bootstrap";
 
 export default function PaginationList(props) {
-  console.log(props);
-
   const [page, setPage] = useState(props.totalPages);
+  const [minLimit, setMinLimit] = useState(0);
+  const [maxLimit, setMaxLimit] = useState(5);
   const [innerTxt, setInnerTxt] = useState();
 
-  let pageLimit = 5;
+  // let pageLimit = 5;
   let arr = [];
-  const pager = (i = 0) => {
-    console.log(i);
+  const pager = (i = 0, pageLimit = 5) => {
     for (i; i < pageLimit; i++) {
       arr.push(i);
     }
   };
-  pager();
+  useEffect(() => {
+    pager(minLimit, maxLimit);
+  }, []);
+  //pager(minLimit, maxLimit);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    pager(minLimit, maxLimit);
+  }, [minLimit, maxLimit]);
 
   const onSelected = (e, index) => {
     props.setPage(parseFloat(e.target.name));
     setInnerTxt(parseFloat(e.target.name));
   };
   const increase = () => {
-    setInnerTxt(parseFloat(innerTxt + 1));
-    props.setPage(parseFloat(innerTxt + 1));
+    // setInnerTxt(parseFloat(innerTxt + 1));
+    //props.setPage(parseFloat(innerTxt + 1));
+    if (innerTxt % 3 === 0) {
+      setMaxLimit(minLimit + 5);
+      setMaxLimit(maxLimit + 5);
+    }
   };
   const decrease = () => {
-    props.setPage(parseFloat(innerTxt - 1));
+    //props.setPage(parseFloat(innerTxt - 1));
 
-    setInnerTxt(parseFloat(innerTxt - 1));
+    //setInnerTxt(parseFloat(innerTxt - 1));
+    if (innerTxt % 3 === 0) {
+      setMaxLimit(minLimit - 5);
+      setMaxLimit(maxLimit - 5);
+    }
   };
 
   return (
@@ -52,8 +64,8 @@ export default function PaginationList(props) {
       <Pagination.Next onClick={() => increase()} />
       <Pagination.Last
         onClick={() => {
-          setInnerTxt(props.totalPages-1);
-          props.setPage(props.totalPages-1);
+          setInnerTxt(props.totalPages - 1);
+          props.setPage(props.totalPages - 1);
         }}
       />
     </Pagination>
