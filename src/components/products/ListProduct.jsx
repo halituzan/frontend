@@ -7,7 +7,7 @@ import { Button, Table, Form, InputGroup } from "react-bootstrap";
 import ProductGroupModal from "./ProductGroupModal";
 import PaginationList from "../PaginationList";
 import { Puff } from "react-loading-icons";
-import { fetchData } from "../../helpers/restApi.helpers";
+import { fetchData, sendData } from "../../helpers/restApi.helpers";
 import { getData } from "../../helpers/db.helpers";
 import { parseJwt } from "../../helpers/jwt.helpers";
 import { useCookies } from "react-cookie";
@@ -22,7 +22,6 @@ export default function ListProduct() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
-
   const token = cookies.jwt;
   useEffect(() => {
     if (token) {
@@ -91,16 +90,22 @@ export default function ListProduct() {
     });
   };
 
-  const sendData = (barcode, index) => {
+  const sendSingulerValue = (barcode, datas) => {
     deger?.content.map((d) => {
       if (barcode === d.barcode) {
-        if (
-          deger?.content[index]?.listPrice < deger?.content[index]?.salePrice
-        ) {
+        let items = [
+          {
+            barcode: barcode,
+            listPrice: d.listPrice,
+            salePrice: d.salePrice,
+            quantity: d.quantity,
+          },
+        ];
+        if (d?.listPrice < d?.salePrice) {
           toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
         } else {
-          console.log("Data Gönderildi");
-          console.log(d);
+          sendData(datas, items);
+          toast.success("İşlem Başarılı");
         }
       }
     });
@@ -299,12 +304,12 @@ export default function ListProduct() {
                     <td className="col-12 col-lg-1 align-self-center text-break color-success">
                       <Button
                         variant="success"
-                        onClick={(e) => sendData(p.barcode, index)}
+                        onClick={(e) => sendSingulerValue(p.barcode, datas)}
                       >
                         <AiOutlineSave
                           className="icon-size-save"
                           style={{ cursor: "pointer" }}
-                          onClick={(e) => sendData(p.barcode, index)}
+                          onClick={(e) => sendSingulerValue(p.barcode, datas)}
                         />
                       </Button>
                     </td>
@@ -330,7 +335,6 @@ export default function ListProduct() {
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
-        type="error"
         theme="dark"
         transition={Flip}
       />

@@ -25,9 +25,6 @@ export const fetchData = async (datas, setterFunc, p = 0, size = 50) => {
 };
 
 export const sendData = async (values, items) => {
-  console.log({
-    items,
-  });
   await axios.post(
     secret.END_POINT + `${values.merchantID}/products/price-and-inventory`,
     {
