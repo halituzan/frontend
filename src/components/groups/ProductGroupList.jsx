@@ -135,11 +135,6 @@ export default function ProductGroupList() {
     sendData(values, items);
   };
 
-  const dataGonder = (values, items) => {
-    const item = "";
-    //sendData()
-  };
-
   /* -------- End Of Event Functions --------*/
 
   /* -------- Render -------- */
