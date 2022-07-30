@@ -13,7 +13,7 @@ import { parseJwt } from "../../helpers/jwt.helpers";
 import { AiFillSave, AiFillCloseCircle, AiFillDelete } from "react-icons/ai";
 import GroupDeleteModal from "./GroupDeleteModal";
 import GroupsNotFound from "./GroupsNotFound";
-import { fetchData } from "../../helpers/restApi.helpers";
+import { fetchData, sendData } from "../../helpers/restApi.helpers";
 
 export default function ProductGroupList() {
   /* -------- Statets -------- */
@@ -24,8 +24,6 @@ export default function ProductGroupList() {
   const [show, setShow] = useState(false);
   const [cookies, setCookie] = useCookies();
   const { groups } = values;
-  console.log(values);
-  console.log(datas);
   /* -------- End of Statets -------- */
 
   /* -------- Hooks -------- */
@@ -35,10 +33,10 @@ export default function ProductGroupList() {
     if (token) {
       getData(parseJwt(token).id, setValue);
     }
-    fetchData(values, setDatas,0,2500);
+    fetchData(values, setDatas, 0, 2500);
   }, []);
   useEffect(() => {
-    fetchData(values, setDatas,0,2500);
+    fetchData(values, setDatas, 0, 2500);
   }, [values]);
   useEffect(() => {
     updateGroupItems(values);
@@ -123,8 +121,23 @@ export default function ProductGroupList() {
       };
     });
   };
-  const updateGroupValues = (values, id, i) => {
-    updateGroupItems(values, id, i);
+  const updateGroupValues = (values, groups) => {
+    updateGroupItems(values);
+    let items = [];
+    groups.groupBarcode.forEach((item) => {
+      items.push({
+        barcode: item,
+        quantity: groups.quantity,
+        listPrice: groups.listPrice,
+        salePrice: groups.salePrice,
+      });
+    });
+    sendData(values, items);
+  };
+
+  const dataGonder = (values, items) => {
+    const item = "";
+    //sendData()
   };
 
   /* -------- End Of Event Functions --------*/
@@ -201,7 +214,7 @@ export default function ProductGroupList() {
                 <Button
                   variant="outline-secondary d-flex align-items-center bg-warning fw-bold"
                   id="button-addon2"
-                  onClick={() => updateGroupValues(values)}
+                  onClick={() => updateGroupValues(values, g)}
                 >
                   <AiFillSave className="text-dark fs-4" />
                 </Button>
