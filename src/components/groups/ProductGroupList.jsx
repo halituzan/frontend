@@ -14,6 +14,7 @@ import { AiFillSave, AiFillCloseCircle, AiFillDelete } from "react-icons/ai";
 import GroupDeleteModal from "./GroupDeleteModal";
 import GroupsNotFound from "./GroupsNotFound";
 import { fetchData, sendData } from "../../helpers/restApi.helpers";
+import { Flip, toast, ToastContainer } from "react-toastify";
 
 export default function ProductGroupList() {
   /* -------- Statets -------- */
@@ -104,7 +105,6 @@ export default function ProductGroupList() {
 
     setRunRemove(runRemove ? false : true);
   };
-
   const groupValueHandle = (e, i) => {
     setValue((data) => {
       return {
@@ -121,18 +121,78 @@ export default function ProductGroupList() {
       };
     });
   };
+  // Bu noktada bir mantık hatası var düzenlenmesi gerekiyor.
   const updateGroupValues = (values, groups) => {
     updateGroupItems(values);
-    let items = [];
+    let allItems = [];
+    let onlyQuantity = [];
+    let onlyPrice = [];
+
     groups.groupBarcode.forEach((item) => {
-      items.push({
+      allItems.push({
         barcode: item,
         quantity: groups.quantity,
         listPrice: groups.listPrice,
         salePrice: groups.salePrice,
       });
+      onlyQuantity.push({
+        barcode: item,
+        quantity: groups.quantity,
+      });
+      onlyPrice.push({
+        barcode: item,
+        listPrice: groups.listPrice,
+        salePrice: groups.salePrice,
+      });
     });
-    sendData(values, items);
+  
+    // Sadece Fiyat Değerleri Gönderilirse Çalışacak
+    if (
+      groups.listPrice === NaN ||
+      groups.listPrice === null ||
+      groups.salePrice === NaN ||
+      groups.salePrice === null
+    ) {
+    } else {
+      if (groups.listPrice >= groups.salePrice) {
+        console.log("girmemeliydi");
+        //sendData(values, onlyPrice);
+      } else toast.error("Piyasa fiyatı, satış fiyatından düşük olamaz");
+    }
+    // Sadece Stok Değeri Gönderilirse Çalışacak
+    if (groups.quantity === NaN || groups.quantity === null) {
+    } else {
+      if (groups.quantity < 0 || groups.quantity > 20000) {
+        toast.error("Stok 0 dan küçük ve 20000 den büyük olamaz.");
+      } else {
+        //sendData(values, onlyQuantity);
+      }
+    }
+    if (
+      groups.listPrice === NaN ||
+      groups.listPrice === null ||
+      groups.salePrice === NaN ||
+      groups.salePrice === null ||
+      groups.quantity === NaN ||
+      groups.quantity === null
+    ) {
+      console.log("hiçbiri yazılmadı.");
+    } else {
+      if (
+        groups.quantity < 0 ||
+        groups.quantity > 20000 ||
+        groups.listPrice <= groups.salePrice
+      ) {
+        if (groups.quantity < 0 || groups.quantity > 20000) {
+          toast.error("Stok 0 dan küçük ve 20000 den büyük olamaz. ");
+        }
+        if (groups.listPrice <= groups.salePrice) {
+          toast.error("Piyasa fiyatı, satış fiyatından düşük olamaz");
+        }
+      } else {
+        // sendData(values, allItems);
+      }
+    }
   };
 
   /* -------- End Of Event Functions --------*/
@@ -291,6 +351,15 @@ export default function ProductGroupList() {
           </Accordion.Item>
         ))
       )}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        theme="dark"
+        transition={Flip}
+      />
     </div>
   );
 }
