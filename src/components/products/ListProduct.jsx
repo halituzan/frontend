@@ -12,16 +12,15 @@ import { getData } from "../../helpers/db.helpers";
 import { parseJwt } from "../../helpers/jwt.helpers";
 import { useCookies } from "react-cookie";
 import Paginations from "../Paginations";
+import SearchModal from "./SearchModal";
 export default function ListProduct() {
-  const [cookies, setCookie] = useCookies();
-  const [searchBarcode, setSearchBarcode] = useState("");
-  const [searchTitle, setSearchTitle] = useState("");
   const [datas, setDatas] = useState({});
-  const [searchData, setSearchData] = useState(null);
   const [deger, setDeger] = useState({});
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
+  const [showSearch, setShowSearch] = useState(false);
+  const [cookies, setCookie] = useCookies();
   const token = cookies.jwt;
   useEffect(() => {
     if (token) {
@@ -32,9 +31,7 @@ export default function ListProduct() {
   useEffect(() => {
     fetchData(datas, setDeger, page, size);
   }, [datas, page, size]);
-  // useEffect(() => {
-  //   fetchData(datas, setSearchData, 0, 2500);
-  // }, [searchBarcode, searchTitle]);
+
   useEffect(() => {
     setLoading(false);
   }, [datas, deger]);
@@ -113,44 +110,19 @@ export default function ListProduct() {
 
   return (
     <div className="container d-flex flex-column m-auto">
-      {/* 
-      <div className="row mt-5">
-        <div className="col-12 col-sm-5">
-          <InputGroup className="mb-3">
-            <Form.Control
-              readOnly
-              placeholder="Başlık İle Arama"
-              name="searchTitle"
-              aria-label="search"
-              aria-describedby="basic-addon1"
-              value={searchTitle}
-              onChange={(e) => setSearchTitle(e.target.value.toLowerCase())}
-            />
-          </InputGroup>
-        </div>
-        <div className="col-12 col-sm-5">
-          <InputGroup className="mb-3">
-            <Form.Control
-              readOnly
-              placeholder="Barkod ile Arama"
-              aria-label="search"
-              name="searchBarcode"
-              aria-describedby="basic-addon1"
-              value={searchBarcode}
-              onChange={(e) => setSearchBarcode(e.target.value.toLowerCase())}
-            />
-          </InputGroup>
-        </div>
-        
-      </div> */}
       <div className="row pagination-list d-flex justify-content-between align-items-center mt-2">
         <div className="col-2 align-self-end">
-          <Button variant="warning" className="bg-warning">
+          <Button
+            variant="warning"
+            className="bg-warning"
+            onClick={() => setShowSearch(true)}
+          >
             <AiOutlineSearch
               className="icon-size-save fs-3"
               style={{ cursor: "pointer" }}
             />
           </Button>
+          <SearchModal show={showSearch} onHide={setShowSearch} />
         </div>
         <div className="col-6 d-flex flex-column">
           <span className="align-self-end">

@@ -23,6 +23,26 @@ export const fetchData = async (datas, setterFunc, p = 0, size = 50) => {
   );
   setterFunc(data);
 };
+export const fetchSingleData = async (datas, barcode, set) => {
+  const { data } = await axios.get(
+    secret.END_POINT +
+      `${datas.merchantID}/products?barcode=${barcode}`,
+    {
+      "User-Agent": `${datas.merchantID} - SelfIntegration`,
+
+      headers: {
+        Authorization: `Basic ${base64_encode(
+          parseSecrets(datas.ApiKey).id + ":" + parseSecrets(datas.ApiSecret).id
+        )}`,
+      },
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      // },
+      // proxy: "http://localhost:3000",
+    }
+  );
+  set(data);
+};
 
 export const sendData = async (values, items) => {
   await axios.post(
