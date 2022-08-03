@@ -145,7 +145,7 @@ h6 {
     align-items: center;
   }
   .page-now {
-    background-color: white;
+    background-color:none!important;
     border: none !important;
   }
 }
