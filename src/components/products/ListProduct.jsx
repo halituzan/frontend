@@ -110,22 +110,22 @@ export default function ListProduct() {
 
   return (
     <div className="container d-flex flex-column m-auto">
-      <div className="row pagination-list d-flex justify-content-between align-items-center mt-2">
-        <div className="col-2 align-self-end">
-          <Button
-            variant="warning"
-            className="bg-warning"
-            onClick={() => setShowSearch(true)}
-          >
-            <AiOutlineSearch
-              className="icon-size-save fs-3"
-              style={{ cursor: "pointer" }}
-            />
-          </Button>
-          <SearchModal show={showSearch} onHide={setShowSearch} />
-        </div>
-        <div className="col-6 d-flex flex-column">
-          <span className="align-self-end">
+      <div className="col-2 align-self-end fixed-bottom search-button-up">
+        <Button
+          variant="warning search-button"
+          className="bg-warning"
+          onClick={() => setShowSearch(true)}
+        >
+          <AiOutlineSearch
+            className="icon-size-save fs-1"
+            style={{ cursor: "pointer" }}
+          />
+        </Button>
+        <SearchModal show={showSearch} onHide={setShowSearch} />
+      </div>
+      <div className="row pagination-list d-flex justify-content-between align-items-center ">
+        <div className="col-12 d-flex flex-column">
+          <span className="align-self-end page-size">
             Sayfa Sayısı:{deger.totalPages}{" "}
           </span>
           <Paginations

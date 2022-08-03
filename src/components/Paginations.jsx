@@ -5,6 +5,7 @@ import { AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
 export default function Paginations(props) {
   const [page, setPage] = useState(props.totalPages);
   const [sayfalandirma, setSayfalandirma] = useState([1, 2, 3, 4, 5]);
+  const [isActive, setIsActive] = useState(1);
   const increase = () => {
     if (sayfalandirma[4] < props.totalPages) {
       setSayfalandirma((sayfalandir) => sayfalandir.map((s) => s + 1));
@@ -21,7 +22,7 @@ export default function Paginations(props) {
   return (
     <div className="d-flex justify-content-end">
       <select
-        className="bg-warning border-0 fw-bold"
+        className="border-1"
         value={props.size}
         onChange={(e) => handleSelect(e)}
       >
@@ -39,11 +40,17 @@ export default function Paginations(props) {
         </option>
       </select>
 
-      <Pagination className="px-2 fs-3 m-0 d-flex page-now" size="sm" >
+      <Pagination className="px-2 fs-3 m-0 d-flex page-now" size="sm">
         <Pagination.First onClick={() => setSayfalandirma([1, 2, 3, 4, 5])} />
         <Pagination.Prev onClick={() => decrease()} />
         {sayfalandirma.map((s, i) => (
-          <Pagination.Item onClick={() => props.setPage(s - 1)}>
+          <Pagination.Item
+            active={isActive === s ? true : false}
+            onClick={() => {
+              props.setPage(s - 1);
+              setIsActive(s);
+            }}
+          >
             {s}
           </Pagination.Item>
         ))}
