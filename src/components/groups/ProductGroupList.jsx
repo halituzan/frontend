@@ -123,7 +123,10 @@ export default function ProductGroupList() {
   };
   // Bu noktada bir mantık hatası var düzenlenmesi gerekiyor.
   const updateGroupValues = (values, groups) => {
-    updateGroupItems(values);
+    // console.log(groups)
+    // console.log(values)
+
+    //updateGroupItems(values);
     let allItems = [];
     let onlyQuantity = [];
     let onlyPrice = [];
@@ -145,52 +148,26 @@ export default function ProductGroupList() {
         salePrice: groups.salePrice,
       });
     });
-  
-    // Sadece Fiyat Değerleri Gönderilirse Çalışacak
-    if (
-      groups.listPrice === NaN ||
-      groups.listPrice === null ||
-      groups.salePrice === NaN ||
-      groups.salePrice === null
-    ) {
-    } else {
-      if (groups.listPrice >= groups.salePrice) {
-        console.log("girmemeliydi");
-        //sendData(values, onlyPrice);
-      } else toast.error("Piyasa fiyatı, satış fiyatından düşük olamaz");
-    }
-    // Sadece Stok Değeri Gönderilirse Çalışacak
-    if (groups.quantity === NaN || groups.quantity === null) {
-    } else {
-      if (groups.quantity < 0 || groups.quantity > 20000) {
-        toast.error("Stok 0 dan küçük ve 20000 den büyük olamaz.");
-      } else {
-        //sendData(values, onlyQuantity);
+
+    // console.log(groups.listPrice);
+    // console.log(groups.salePrice);
+    // console.log(groups.quantity);
+    if (!groups.listPrice || !groups.salePrice || !groups.quantity) {
+      //sendData(values, onlyQuantity);
+      if (!groups.listPrice) {
+        toast.error("Piyasa Fiyatı Girmelisiniz.");
+      } else if (!groups.salePrice) {
+        toast.error("Satış Fiyatı Girmelisiniz.");
+      } else if (!groups.quantity) {
+        toast.error("Stok Girmelisiniz.");
       }
-    }
-    if (
-      groups.listPrice === NaN ||
-      groups.listPrice === null ||
-      groups.salePrice === NaN ||
-      groups.salePrice === null ||
-      groups.quantity === NaN ||
-      groups.quantity === null
-    ) {
-      console.log("hiçbiri yazılmadı.");
     } else {
-      if (
-        groups.quantity < 0 ||
-        groups.quantity > 20000 ||
-        groups.listPrice <= groups.salePrice
-      ) {
-        if (groups.quantity < 0 || groups.quantity > 20000) {
-          toast.error("Stok 0 dan küçük ve 20000 den büyük olamaz. ");
-        }
-        if (groups.listPrice <= groups.salePrice) {
-          toast.error("Piyasa fiyatı, satış fiyatından düşük olamaz");
-        }
+      if (groups.salePrice > groups.listPrice) {
+        toast.error("Piyasa fiyatı satış fiyatından küçük olamaz");
       } else {
-        // sendData(values, allItems);
+        console.log("Hepsi doğru şekilde Girildi");
+        console.log(allItems);
+        sendData(values, allItems);
       }
     }
   };
@@ -233,7 +210,7 @@ export default function ProductGroupList() {
                   <Form.Control
                     type="number"
                     name="listPrice"
-                    value={values.groups?.listPrice}
+                    value={g?.listPrice}
                     onChange={(e) => groupValueHandle(e, i)}
                     className="col-12 col-md-4"
                   />
@@ -246,7 +223,7 @@ export default function ProductGroupList() {
                     className="col-12 col-md-4"
                     type="number"
                     name="salePrice"
-                    value={values.groups?.salePrice}
+                    value={g?.salePrice}
                     onChange={(e) => groupValueHandle(e, i)}
                   />
                 </Form.Group>
@@ -260,7 +237,7 @@ export default function ProductGroupList() {
                     max="20000"
                     min="0"
                     className="col-12 col-md-4"
-                    value={values.groups?.quantity}
+                    value={g?.quantity}
                     onChange={(e) => groupValueHandle(e, i)}
                   />
                 </Form.Group>
@@ -332,13 +309,33 @@ export default function ProductGroupList() {
                                 Gruptan Çıkar
                               </Button>
 
-                              <p className="pt-2">
-                                Barkod:{" "}
-                                <span className="text-wrap fw-bold ">
-                                  {items.barcode}
-                                </span>
-                              </p>
-                              <p className="text-wrap"> {items.title}</p>
+                              <div className="barcodes d-flex row justify-content-center">
+                                <p className="px-1 text-center mb-0 col-12 col-lg-4">
+                                  Barkod:{" "}
+                                  <span className="text-wrap fw-bold ">
+                                    {items.barcode}
+                                  </span>
+                                </p>
+                                <p className="px-1 text-center mb-0 col-12 col-lg-4">
+                                  Piyasa Fiyatı:{" "}
+                                  <span className="text-wrap fw-bold ">
+                                    {items.listPrice}
+                                  </span>
+                                </p>
+                                <p className="px-1 text-center mb-0 col-12 col-lg-4">
+                                  Satış Fiyatı:{" "}
+                                  <span className="text-wrap fw-bold ">
+                                    {items.salePrice}
+                                  </span>
+                                </p>
+                                <p className="px-1 text-center mb-0 col-12 col-lg-4">
+                                  Stok:{" "}
+                                  <span className="text-wrap fw-bold ">
+                                    {items.quantity}
+                                  </span>
+                                </p>
+                              </div>
+                              <p className="text-wrap mt-2 text-center"> {items.title}</p>
                             </div>
                           </div>
                         </div>

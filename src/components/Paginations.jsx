@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Pagination } from "react-bootstrap";
 import { AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
 
 export default function Paginations(props) {
   const [page, setPage] = useState(props.totalPages);
+  const [sayfalandirma, setSayfalandirma] = useState([1, 2, 3, 4, 5]);
   const increase = () => {
-    if (props.pages < props.totalPages) {
-      props.setPage(props.pages + 1);
+    if (sayfalandirma[4] < props.totalPages) {
+      setSayfalandirma((sayfalandir) => sayfalandir.map((s) => s + 1));
     }
   };
   const decrease = () => {
-    if (props.pages > 0) {
-      props.setPage(props.pages - 1);
+    if (sayfalandirma[0] > 1) {
+      setSayfalandirma((sayfalandir) => sayfalandir.map((s) => s - 1));
     }
   };
   const handleSelect = (e) => {
@@ -37,24 +38,29 @@ export default function Paginations(props) {
           100
         </option>
       </select>
-      <Button variant="warning p-0 mx-1 double-arrow" onClick={() => props.setPage(0)}>
-        <AiOutlineCaretLeft className="fs-3 text-dark " />
-        <AiOutlineCaretLeft className="fs-3 text-dark double-left" />
-      </Button>
-      <Button variant="warning p-1 mx-1" onClick={() => decrease()}>
-        <AiOutlineCaretLeft className="fs-3 text-dark" />
-      </Button>
-      <p className="px-2 fs-3 m-0 border-2 border border-warning page-now"> {props.pages+1}</p>
-      <Button variant="warning p-1 mx-1" onClick={() => increase()}>
-        <AiOutlineCaretRight className="fs-3 text-dark" />
-      </Button>
-      <Button
-        variant="warning p-0 mx-1 double-arrow"
-        onClick={() => props.setPage(props.totalPages - 1)}
-      >
-        <AiOutlineCaretRight className="fs-3 text-dark double-right" />
-        <AiOutlineCaretRight className="fs-3 text-dark" />
-      </Button>
+
+      <Pagination className="px-2 fs-3 m-0 d-flex page-now" size="sm" >
+        <Pagination.First onClick={() => setSayfalandirma([1, 2, 3, 4, 5])} />
+        <Pagination.Prev onClick={() => decrease()} />
+        {sayfalandirma.map((s, i) => (
+          <Pagination.Item onClick={() => props.setPage(s - 1)}>
+            {s}
+          </Pagination.Item>
+        ))}
+        <Pagination.Next onClick={() => increase()} />
+
+        <Pagination.Last
+          onClick={() =>
+            setSayfalandirma([
+              props.totalPages - 4,
+              props.totalPages - 3,
+              props.totalPages - 2,
+              props.totalPages - 1,
+              props.totalPages,
+            ])
+          }
+        />
+      </Pagination>
     </div>
   );
 }
