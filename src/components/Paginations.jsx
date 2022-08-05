@@ -46,6 +46,7 @@ export default function Paginations(props) {
         {sayfalandirma.map((s, i) => (
           <Pagination.Item
             active={isActive === s ? true : false}
+            key={i}
             onClick={() => {
               props.setPage(s - 1);
               setIsActive(s);

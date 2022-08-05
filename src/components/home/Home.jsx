@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../components.css";
+import Profile from "./Profile"
 import {
   AiOutlineBlock,
   AiOutlineAppstore,
@@ -10,6 +11,8 @@ import {
   AiFillRocket,
   AiOutlineAppstoreAdd,
 } from "react-icons/ai";
+import { FcAddImage } from "react-icons/fc";
+
 import { parseJwt } from "../../helpers/jwt.helpers";
 import { useCookies } from "react-cookie";
 import { getData } from "../../helpers/db.helpers";
@@ -27,9 +30,9 @@ const Home = () => {
     <>
       <div className="row container m-auto">
         <div className="side d-flex col-12 col-sm-6 col-lg-3 flex-column justify-content-center align-items-center bg-dark text-light mt-2">
-          <div className="side-logo d-flex justify-content-center align-items-center bg-warning my-3">
+          <div className="side-logo-1 d-flex justify-content-center align-items-center my-3">
             <p className="side-logo-p">
-              {data?.name?.slice(0, 1).toUpperCase()}
+              <Profile/>
             </p>
           </div>
           <p className="text-center">
@@ -65,7 +68,8 @@ const Home = () => {
           <h3> Ürün Grupları</h3>
           <hr className="text-warning w-100" />
           <p className="text-center">
-            Ürün gruplarını tek bir alanda yönetebilir ve gruba ait ürünleri toplu bir şekilde güncelleyebilirsiniz.
+            Ürün gruplarını tek bir alanda yönetebilir ve gruba ait ürünleri
+            toplu bir şekilde güncelleyebilirsiniz.
           </p>
         </div>
         <div className="side d-flex col-12 col-sm-6 col-lg-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
@@ -79,7 +83,8 @@ const Home = () => {
           <h3> Grup Oluştur</h3>
           <hr className="text-warning w-100" />
           <p className="text-center">
-            Ürünlerinizi toplu bir şekilde düzenlemeniz için ürün grupları oluşturabilirsiniz.
+            Ürünlerinizi toplu bir şekilde düzenlemeniz için ürün grupları
+            oluşturabilirsiniz.
           </p>
         </div>
       </div>
