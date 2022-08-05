@@ -145,7 +145,15 @@ h6 {
     align-items: center;
   }
   .page-now {
-    background-color:none!important;
+    background-color: none !important;
     border: none !important;
   }
 }
+.pagination .active,
+.page-item.active .page-link {
+  background-color: #f1c40f !important;
+  border-color: #f1c40f !important;
+}
+/* .pagination-list span{
+  color: #f1c40f!important;
+} */
