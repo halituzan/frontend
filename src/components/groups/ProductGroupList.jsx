@@ -121,27 +121,11 @@ export default function ProductGroupList() {
       };
     });
   };
-  // Bu noktada bir mantık hatası var düzenlenmesi gerekiyor.
-  const updateGroupValues = (values, groups) => {
-    // console.log(groups)
-    // console.log(values)
-
-    //updateGroupItems(values);
-    let allItems = [];
-    let onlyQuantity = [];
+ 
+  const updateGroupPrice = (values, groups) => {
     let onlyPrice = [];
 
     groups.groupBarcode.forEach((item) => {
-      allItems.push({
-        barcode: item,
-        quantity: groups.quantity,
-        listPrice: groups.listPrice,
-        salePrice: groups.salePrice,
-      });
-      onlyQuantity.push({
-        barcode: item,
-        quantity: groups.quantity,
-      });
       onlyPrice.push({
         barcode: item,
         listPrice: groups.listPrice,
@@ -149,25 +133,42 @@ export default function ProductGroupList() {
       });
     });
 
-    // console.log(groups.listPrice);
-    // console.log(groups.salePrice);
-    // console.log(groups.quantity);
     if (!groups.listPrice || !groups.salePrice || !groups.quantity) {
       //sendData(values, onlyQuantity);
       if (!groups.listPrice) {
         toast.error("Piyasa Fiyatı Girmelisiniz.");
       } else if (!groups.salePrice) {
         toast.error("Satış Fiyatı Girmelisiniz.");
-      } else if (!groups.quantity) {
-        toast.error("Stok Girmelisiniz.");
       }
     } else {
       if (groups.salePrice > groups.listPrice) {
         toast.error("Piyasa fiyatı satış fiyatından küçük olamaz");
       } else {
         console.log("Hepsi doğru şekilde Girildi");
-        console.log(allItems);
-        sendData(values, allItems);
+        console.log(onlyPrice);
+        sendData(values, onlyPrice);
+      }
+    }
+  };
+  const updateGroupQuantity = (values, groups) => {
+    let onlyQuantity = [];
+
+    groups.groupBarcode.forEach((item) => {
+      onlyQuantity.push({
+        barcode: item,
+        quantity: groups.quantity,
+      });
+    });
+
+    if (!groups.quantity) {
+      toast.error("Stok Girmelisiniz.");
+    } else {
+      if (groups.quantity < 0 || groups.quantity > 20000) {
+        toast.error("Stok 0 dan küçük ve 20bin den büyük olamaz");
+      } else {
+        console.log("Hepsi doğru şekilde Girildi");
+        console.log(onlyQuantity);
+        sendData(values, onlyQuantity);
       }
     }
   };
@@ -186,10 +187,26 @@ export default function ProductGroupList() {
               <p className="my-1 fs-3 text-warning">{g?.groupName}</p>
             </Accordion.Header>
             <Accordion.Body className="w-100 row d-flex my-2">
-              <p className="d-flex justify-content-evenly align-items-center">
-                <span className="text-warning rounded-circle shadow-sm fw-bold fs-1 me-2 bg-danger px-4">
-                  !
-                </span>
+              <div className="header-acordion d-flex">
+                <div className="d-flex flex-column justify-content-center align-items-center mx-1 ">
+                  <div className="col-12 mb-3 d-flex justify-content-start">
+                    <OverlayTrigger
+                      placement="bottom"
+                      flip={true}
+                      delay={{ show: 50, hide: 100 }}
+                      overlay={renderTooltip}
+                    >
+                      <Button
+                        variant="outline-danger fw-bold d-flex flex-column text-light align-items-center bg-danger fw-bold h-100"
+                        id="button-addon2"
+                        onClick={() => handleShow(i)}
+                      >
+                        <AiFillDelete className="text-warning  fs-1 " /> Grubu
+                        Sil
+                      </Button>
+                    </OverlayTrigger>
+                  </div>
+                </div>
                 <p>
                   - Burada yapcağınız fiyat ve stok değişikliği grup altında
                   bulunan tüm ürünlere uygulanacaktır.
@@ -202,70 +219,66 @@ export default function ProductGroupList() {
                     otomatik olarak silinir.
                   </span>
                 </p>
-              </p>
-
-              <div className="col-12 my-1 col-md-3">
-                <Form.Group>
-                  <FormLabel>Piyasa Fiyatı</FormLabel>
-                  <Form.Control
-                    type="number"
-                    name="listPrice"
-                    value={g?.listPrice}
-                    onChange={(e) => groupValueHandle(e, i)}
-                    className="col-12 col-md-4"
-                  />
-                </Form.Group>
               </div>
-              <div className="col-12 my-1 col-md-3">
-                <Form.Group>
-                  <FormLabel>Satış Fiyatı</FormLabel>
-                  <Form.Control
-                    className="col-12 col-md-4"
-                    type="number"
-                    name="salePrice"
-                    value={g?.salePrice}
-                    onChange={(e) => groupValueHandle(e, i)}
-                  />
-                </Form.Group>
-              </div>
-              <div className="col-4 my-1 col-md-2">
-                <Form.Group>
-                  <FormLabel id="Stok">Stok</FormLabel>
-                  <Form.Control
-                    type="number"
-                    name="quantity"
-                    max="20000"
-                    min="0"
-                    className="col-12 col-md-4"
-                    value={g?.quantity}
-                    onChange={(e) => groupValueHandle(e, i)}
-                  />
-                </Form.Group>
-              </div>
-              <div className="col-4 my-1 col-md-1 d-flex justify-content-center align-self-end">
-                <Button
-                  variant="outline-secondary d-flex align-items-center bg-warning fw-bold"
-                  id="button-addon2"
-                  onClick={() => updateGroupValues(values, g)}
-                >
-                  <AiFillSave className="text-dark fs-4" />
-                </Button>
-              </div>
-              <div className="col-4 my-1 col-md-3 d-flex justify-content-center align-self-end">
-                <OverlayTrigger
-                  placement="bottom"
-                  flip={true}
-                  delay={{ show: 50, hide: 100 }}
-                  overlay={renderTooltip}
-                >
+              <div className="row">
+                <div className="col-5 my-1 col-md-5">
+                  <Form.Group>
+                    <FormLabel>Piyasa Fiyatı</FormLabel>
+                    <Form.Control
+                      type="number"
+                      name="listPrice"
+                      value={g?.listPrice}
+                      onChange={(e) => groupValueHandle(e, i)}
+                      className="col-12 col-md-4"
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-5 my-1 col-md-5">
+                  <Form.Group>
+                    <FormLabel>Satış Fiyatı</FormLabel>
+                    <Form.Control
+                      className="col-12 col-md-4"
+                      type="number"
+                      name="salePrice"
+                      value={g?.salePrice}
+                      onChange={(e) => groupValueHandle(e, i)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-2 my-1 col-md-2 d-flex justify-content-center align-self-end">
                   <Button
-                    variant="outline-danger d-flex text-light align-items-center bg-danger fw-bold"
+                    variant="outline-secondary d-flex align-items-center bg-warning fw-bold"
                     id="button-addon2"
-                    onClick={() => handleShow(i)}
+                    onClick={() => updateGroupPrice(values, g)}
                   >
-                    <AiFillDelete className="text-warning  fs-4" /> Grubu Sil
+                    <AiFillSave className="text-dark fs-4" />
                   </Button>
-                </OverlayTrigger>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-10 my-1 col-md-10 col-xl-10 col-lg-10">
+                  <Form.Group>
+                    <FormLabel id="Stok">Stok</FormLabel>
+                    <Form.Control
+                      type="number"
+                      name="quantity"
+                      max="20000"
+                      min="0"
+                      className="col-12 col-md-4"
+                      value={g?.quantity}
+                      onChange={(e) => groupValueHandle(e, i)}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-2 my-1 col-md-2  col-xl-2 col-lg-2 d-flex justify-content-center align-self-end">
+                  <Button
+                    variant="outline-secondary d-flex align-items-center bg-warning fw-bold"
+                    id="button-addon2"
+                    onClick={() => updateGroupQuantity(values, g)}
+                  >
+                    <AiFillSave className="text-dark fs-4" />
+                  </Button>
+                </div>
               </div>
               <hr className="my-2" />
               <div className="row">
@@ -335,7 +348,10 @@ export default function ProductGroupList() {
                                   </span>
                                 </p>
                               </div>
-                              <p className="text-wrap mt-2 text-center"> {items.title}</p>
+                              <p className="text-wrap mt-2 text-center">
+                                {" "}
+                                {items.title}
+                              </p>
                             </div>
                           </div>
                         </div>

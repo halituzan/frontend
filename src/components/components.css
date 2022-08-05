@@ -127,6 +127,11 @@ h6 {
 .not-found-title {
   font-size: calc(4rem + 1.5vw) !important;
 }
+.uyari {
+  font-size: 4rem;
+  padding-left: 40%;
+  margin: 5px;
+}
 
 /* Pagination */
 
