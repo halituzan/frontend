@@ -162,3 +162,9 @@ h6 {
 /* .pagination-list span{
   color: #f1c40f!important;
 } */
+/* Not Found */
+.notfound-message {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+    font-size: 5rem;
+}
