@@ -1,5 +1,5 @@
 import axios from "axios";
-import { toast } from "react-toastify";
+import { secret } from "./keys";
 
 export const authHelpers = (cookies, removeCookies, navigate) => {
   const verifyUser = async () => {
@@ -7,7 +7,7 @@ export const authHelpers = (cookies, removeCookies, navigate) => {
       navigate("/login");
     } else {
       const { data } = await axios.post(
-        "http://localhost:4000/",
+        secret.SELF_DB,
         {},
         { withCredentials: true }
       );

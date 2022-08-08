@@ -1,8 +1,8 @@
 import axios from "axios";
-import { parseSecrets } from "./jwt.helpers";
+//import { parseJwt } from "./jwt.helpers";
 import { secret } from "./keys";
-import { decode as base64_decode, encode as base64_encode } from "base-64";
-
+import { encode as base64_encode } from "base-64";
+import jwt_decode from 'jwt-decode'
 export const fetchData = async (datas, setterFunc, p = 0, size = 50) => {
   const { data } = await axios.get(
     secret.END_POINT +
@@ -15,7 +15,7 @@ export const fetchData = async (datas, setterFunc, p = 0, size = 50) => {
       // origin: "http://localhost:3000",
       headers: {
         Authorization: `Basic ${base64_encode(
-          parseSecrets(datas.ApiKey).id + ":" + parseSecrets(datas.ApiSecret).id
+          jwt_decode(datas?.ApiKey).id + ":" + jwt_decode(datas?.ApiSecret).id
         )}`,
       },
       //   "Access-Control-Allow-Origin": "*",
@@ -35,7 +35,7 @@ export const fetchSingleData = async (datas, barcode, set) => {
 
       headers: {
         Authorization: `Basic ${base64_encode(
-          parseSecrets(datas.ApiKey).id + ":" + parseSecrets(datas.ApiSecret).id
+          jwt_decode(datas?.ApiKey).id + ":" + jwt_decode(datas?.ApiSecret).id
         )}`,
       },
       //   "Access-Control-Allow-Origin": "*",
@@ -58,9 +58,9 @@ export const sendData = async (values, items) => {
 
       headers: {
         Authorization: `Basic ${base64_encode(
-          parseSecrets(values.ApiKey).id +
+          jwt_decode(values?.ApiKey).id +
           ":" +
-          parseSecrets(values.ApiSecret).id
+          jwt_decode(values?.ApiSecret).id
         )}`,
         "Content-Type": "application/json",
       },

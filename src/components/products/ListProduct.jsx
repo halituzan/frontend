@@ -5,11 +5,10 @@ import { Flip, toast, ToastContainer } from "react-toastify";
 import "./products.css";
 import { Button, Table, Form, InputGroup } from "react-bootstrap";
 import ProductGroupModal from "./ProductGroupModal";
-import PaginationList from "../PaginationList";
 import { Puff } from "react-loading-icons";
 import { fetchData, sendData } from "../../helpers/restApi.helpers";
 import { getData } from "../../helpers/db.helpers";
-import { parseJwt } from "../../helpers/jwt.helpers";
+import jwt_decode from "jwt-decode";
 import { useCookies } from "react-cookie";
 import Paginations from "../Paginations";
 import SearchModal from "./SearchModal";
@@ -24,7 +23,7 @@ export default function ListProduct() {
   const token = cookies.jwt;
   useEffect(() => {
     if (token) {
-      getData(parseJwt(token).id, setDatas);
+      getData(jwt_decode(token).id, setDatas);
     }
     fetchData(datas, setDeger, page, size);
   }, []);
