@@ -11,6 +11,8 @@ import CreateGroup from "./pages/CreateGroup";
 import Admin from "./pages/Admin";
 import Users from "./components/admin/Users";
 import Profitability from "./pages/Profitability";
+import NotFound from "./components/NotFound";
+import MemberShip from "./components/MemberShip";
 
 export default function App() {
   return (
@@ -25,7 +27,9 @@ export default function App() {
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/admin" element={<Admin />} />
         <Route exact path="/admin/users" element={<Users />} />
-        <Route exact path="/profitability" element={<Profitability/> } />
+        <Route exact path="/profitability" element={<Profitability />} />
+        <Route exact path="/membership" element={<MemberShip />} />
+        <Route exact path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -13,7 +13,7 @@ import {
   AiFillRocket,
 } from "react-icons/ai";
 import "./components.css";
-export default function NavbarMenu() {
+export default function NavbarMenu({ role }) {
   const navigate = useNavigate();
   const [cookies, setCookies, removeCookies] = useCookies([]);
   useEffect(() => {
@@ -41,55 +41,60 @@ export default function NavbarMenu() {
           </Badge> */}
         </Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="m-auto d-flex">
-            <Nav.Link
-              href="/products"
-              className="text-light d-flex justify-content-center align-items-center "
-            >
-              <AiOutlineBlock className="fs-3 nav-icon text-warning" /> Ürünler
-            </Nav.Link>
-            <Nav.Link
-              href="/product-groups"
-              className="text-light d-flex justify-content-center align-items-center "
-            ></Nav.Link>
-            <NavDropdown
-              title={
-                <div
-                  className="text-light d-flex justify-content-center align-items-center "
-                  style={{ display: "inline-block" }}
-                >
-                  <AiOutlineAppstore className="fs-3 nav-icon text-warning" />{" "}
+          {role === "gold" ? (
+            <Nav className="m-auto d-flex">
+              <Nav.Link
+                href="/products"
+                className="text-light d-flex justify-content-center align-items-center "
+              >
+                <AiOutlineBlock className="fs-3 nav-icon text-warning" />{" "}
+                Ürünler
+              </Nav.Link>
+              <Nav.Link
+                href="/product-groups"
+                className="text-light d-flex justify-content-center align-items-center "
+              ></Nav.Link>
+              <NavDropdown
+                title={
+                  <div
+                    className="text-light d-flex justify-content-center align-items-center "
+                    style={{ display: "inline-block" }}
+                  >
+                    <AiOutlineAppstore className="fs-3 nav-icon text-warning" />{" "}
+                    Ürün Grupları
+                  </div>
+                }
+                id="basic-nav-dropdown"
+                className="bg-dark"
+              >
+                <NavDropdown.Item href="/create-group" className="text-dark">
+                  <AiOutlineAppstoreAdd className="fs-3 nav-icon text-warning fw-bold " />{" "}
+                  Ürün Grubu Oluştur
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="/product-groups" className="text-dark">
+                  <AiOutlineAppstore className="fs-3 text-warning fw-bold nav-icon" />{" "}
                   Ürün Grupları
-                </div>
-              }
-              id="basic-nav-dropdown"
-              className="bg-dark"
-            >
-              <NavDropdown.Item href="/create-group" className="text-dark">
-                <AiOutlineAppstoreAdd className="fs-3 nav-icon text-warning fw-bold " />{" "}
-                Ürün Grubu Oluştur
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="/product-groups" className="text-dark">
-                <AiOutlineAppstore className="fs-3 text-warning fw-bold nav-icon" />{" "}
-                Ürün Grupları
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link
-              href="/settings"
-              className="text-light d-flex justify-content-center align-items-center "
-            >
-              <AiOutlineCalculator className="fs-3 text-warning nav-icon" />{" "}
-              Karlılık
-            </Nav.Link>
-            <Nav.Link
-              href="/settings"
-              className="text-light d-flex justify-content-center align-items-center "
-            >
-              <AiFillRocket className="fs-3 text-warning nav-icon" /> Fiyat
-              Rekabeti
-            </Nav.Link>
-          </Nav>
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link
+                href="/settings"
+                className="text-light d-flex justify-content-center align-items-center "
+              >
+                <AiOutlineCalculator className="fs-3 text-warning nav-icon" />{" "}
+                Karlılık
+              </Nav.Link>
+              <Nav.Link
+                href="/settings"
+                className="text-light d-flex justify-content-center align-items-center "
+              >
+                <AiFillRocket className="fs-3 text-warning nav-icon" /> Fiyat
+                Rekabeti
+              </Nav.Link>
+            </Nav>
+          ) : (
+            ""
+          )}
         </Navbar.Collapse>
         <div className="setting-buttons d-flex justify-content-between">
           <button className="btn btn-warning me-2">
