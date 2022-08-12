@@ -1,5 +1,4 @@
 import axios from "axios";
-//import { parseJwt } from "./jwt.helpers";
 import { secret } from "./keys";
 import { encode as base64_encode } from "base-64";
 import jwt_decode from 'jwt-decode'
@@ -9,21 +8,14 @@ export const fetchData = async (datas, setterFunc, p = 0, size = 50) => {
     `${datas.merchantID}/products?approved=True&page=${p}&size=${size}&archived=false`,
     {
       "User-Agent": `${datas.merchantID} - SelfIntegration`,
-      // Accept: "application/json",
-      // "Access-Control-Allow-Origin": "http://localhost:3000",
-      // "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      // origin: "http://localhost:3000",
       headers: {
         Authorization: `Basic ${base64_encode(
           jwt_decode(datas?.ApiKey).id + ":" + jwt_decode(datas?.ApiSecret).id
         )}`,
       },
-      //   "Access-Control-Allow-Origin": "*",
-      //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      // },
-      // proxy: "http://localhost:3000",
     }
   );
+
   setterFunc(data);
 };
 export const fetchSingleData = async (datas, barcode, set) => {
@@ -38,10 +30,6 @@ export const fetchSingleData = async (datas, barcode, set) => {
           jwt_decode(datas?.ApiKey).id + ":" + jwt_decode(datas?.ApiSecret).id
         )}`,
       },
-      //   "Access-Control-Allow-Origin": "*",
-      //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      // },
-      // proxy: "http://localhost:3000",
     }
   );
   set(data);

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../components.css";
+import { FaMedal } from "react-icons/fa";
+
 // import Profile from "./Profile";
 import {
   AiOutlineBlock,
@@ -11,7 +13,7 @@ import {
   AiFillRocket,
   AiOutlineAppstoreAdd,
 } from "react-icons/ai";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from "jwt-decode";
 import { useCookies } from "react-cookie";
 import { getData } from "../../helpers/db.helpers";
 
@@ -29,12 +31,36 @@ const Home = () => {
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
           <div className="side-logo-1 d-flex justify-content-center align-items-center my-3">
             <p className="side-logo-p">
-              {/* {data.name.slice(0,1)} */}
-              {/* <Profile datas={data} /> */}
+              {data.userRole !== "silver" ? (
+                <h2
+                  style={{
+                    fontFamily: "Roboto Slab, serif",
+                    fontSize: "1.9rem",
+                  }}
+                >
+                  Gold Üye
+                </h2>
+              ) : (
+                <h2
+                  style={{
+                    fontFamily: "Roboto Slab, serif",
+                    color: "#212529",
+                    fontSize: "1.9rem",
+                  }}
+                >
+                  Silver Üye
+                </h2>
+              )}
+              {data.userRole !== "silver" ? (
+                <FaMedal style={{ fontSize: "10rem", color: "#ffa40b" }} />
+              ) : (
+                <FaMedal style={{ fontSize: "10rem", color: "#c0c0c0" }} />
+              )}
             </p>
           </div>
           <p className="text-center">
-            Hoş Geldin {data?.name?.toUpperCase()} {data?.surname?.toUpperCase()}
+            Hoş Geldin {data?.name?.toUpperCase()}{" "}
+            {data?.surname?.toUpperCase()}
           </p>
           <p className="text-center">
             Hemen <Link to="/settings">Ayarlar</Link> Bölümüne Giderek Mağaza
