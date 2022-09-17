@@ -20,7 +20,6 @@ const Home = () => {
   const [cookies, setCookie] = useCookies(["jwt"]);
   const token = cookies.jwt;
 
-
   useEffect(() => {
     getData(jwt_decode(token).id, setData);
   }, []);
@@ -58,14 +57,14 @@ const Home = () => {
               )}
             </div>
           </div>
-          <p className="text-center">
+          <div className="text-center">
             Hoş Geldin {data?.name?.toUpperCase()}{" "}
             {data?.surname?.toUpperCase()}
-          </p>
-          <p className="text-center">
+          </div>
+          <div className="text-center">
             Hemen <Link to="/settings">Ayarlar</Link> Bölümüne Giderek Mağaza
             Bilgilerinizi Güncelleyebilirsiniz.{" "}
-          </p>
+          </div>
         </div>
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
           <Link
@@ -112,10 +111,7 @@ const Home = () => {
           </p>
         </div>
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
-          <Link
-            style={{ fontSize: "10rem", marginTop: "-60px" }}
-            to="/settings"
-          >
+          <Link className="side-a" to="/settings">
             <AiFillRocket />
           </Link>
 

@@ -164,3 +164,7 @@ button:focus {
 .membership {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
+.side-a {
+  font-size: 10rem;
+  margin-top: -60px;
+}
