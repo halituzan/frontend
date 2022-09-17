@@ -3,7 +3,7 @@ import { AiOutlineSave, AiOutlineSearch } from "react-icons/ai";
 import { FaLayerGroup } from "react-icons/fa";
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "./products.css";
-import { Button, Table, Form, InputGroup } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import ProductGroupModal from "./ProductGroupModal";
 import { Puff } from "react-loading-icons";
 import { fetchData, sendData } from "../../helpers/restApi.helpers";
@@ -97,7 +97,6 @@ export default function ListProduct() {
             quantity: d.quantity,
           },
         ];
-
         if (d?.listPrice < d?.salePrice) {
           return toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
         } else {
@@ -105,7 +104,7 @@ export default function ListProduct() {
           return toast.success("İşlem Başarılı");
         }
       }
-      return d;
+      return barcode;
     });
   };
 
