@@ -87,7 +87,7 @@ export default function ListProduct() {
   };
 
   const sendSingulerValue = (barcode, datas) => {
-    deger?.content.map((d) => {
+    return deger?.content.map((d) => {
       let items = [
         {
           barcode: barcode,
