@@ -19,7 +19,7 @@ export default function Login() {
 
     try {
       const { data } = await axios.post(
-        "/ty/login",
+        "/self/login",
         {
           ...values,
         },
