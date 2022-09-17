@@ -88,23 +88,35 @@ export default function ListProduct() {
 
   const sendSingulerValue = (barcode, datas) => {
     deger?.content.map((d) => {
-      if (barcode === d.barcode) {
-        let items = [
-          {
-            barcode: barcode,
-            listPrice: d.listPrice,
-            salePrice: d.salePrice,
-            quantity: d.quantity,
-          },
-        ];
-        if (d?.listPrice < d?.salePrice) {
-          return toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
-        } else {
-          sendData(datas, items);
-          return toast.success("İşlem Başarılı");
-        }
-      }
-      return barcode;
+      let items = [
+        {
+          barcode: barcode,
+          listPrice: d.listPrice,
+          salePrice: d.salePrice,
+          quantity: d.quantity,
+        },
+      ];
+      return barcode === d.barcode
+        ? d?.listPrice < d?.salePrice
+          ? toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.")
+          : sendData(datas, items)
+        : "";
+      // if (barcode === d.barcode) {
+      //   let items = [
+      //     {
+      //       barcode: barcode,
+      //       listPrice: d.listPrice,
+      //       salePrice: d.salePrice,
+      //       quantity: d.quantity,
+      //     },
+      //   ];
+      //   if (d?.listPrice < d?.salePrice) {
+      //     return toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
+      //   } else {
+      //     sendData(datas, items);
+      //     return toast.success("İşlem Başarılı");
+      //   }
+      // }
     });
   };
 
