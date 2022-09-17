@@ -58,7 +58,7 @@ const Home = () => {
             </div>
           </div>
           <div className="text-center">
-            Hoş Geldin {data?.name} {data?.surname}
+            <p>Hoş Geldin {data?.name} {data?.surname}</p>
           </div>
           <div className="text-center">
             Hemen <Link to="/settings">Ayarlar</Link> Bölümüne Giderek Mağaza
