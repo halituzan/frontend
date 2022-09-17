@@ -2,16 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": {
-    "/ty": {
-      "target": "https://api.trendyol.com",
-      "changeOrigin": true
-    },
-    "/self": {
-      "target": "http://3.129.59.0:4000",
-      "changeOrigin": true
-    }
-  },
+  "proxy":  "https://api.trendyol.com/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
