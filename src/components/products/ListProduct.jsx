@@ -97,13 +97,15 @@ export default function ListProduct() {
             quantity: d.quantity,
           },
         ];
+
         if (d?.listPrice < d?.salePrice) {
-          toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
+          return toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
         } else {
           sendData(datas, items);
-          toast.success("İşlem Başarılı");
+          return toast.success("İşlem Başarılı");
         }
       }
+      return d;
     });
   };
 
