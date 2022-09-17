@@ -69,7 +69,7 @@ const ProductGroupModal = (props) => {
           <img
             src={data?.images[0]?.url ? data?.images[0]?.url : data?.images[1]?.url}
             alt={data?.title}
-            width="64px"
+            style={{width:"64px"}}
             className="mx-4 align-self-baseline"
           />
           <p className="p-2">

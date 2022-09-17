@@ -14,6 +14,7 @@ export default function Dashboard() {
   const token = cookies.jwt;
   const [data, setData] = useState({});
   const [isGold, setIsGold] = useState(false);
+
   useEffect(() => {
     if (token) {
       getData(jwt_decode(token).id, setData);

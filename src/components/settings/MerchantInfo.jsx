@@ -9,7 +9,7 @@ export default function MerchantInfo() {
   const [eye, setEye] = useState(true);
   const [lock, setLock] = useState(true);
   const [settingsValue, setSettingsValue] = useState({});
-
+console.log(settingsValue);
   const [cookies, setCookie] = useCookies();
   const token = cookies.jwt;
   useEffect(() => {
@@ -92,7 +92,6 @@ export default function MerchantInfo() {
                       <Form.Control
                         type="text"
                         name="ApiKey"
-                        defaultValue=""
                         placeholder="API Key"
                         aria-label="API Key"
                         aria-describedby="basic-addon2"
@@ -117,7 +116,6 @@ export default function MerchantInfo() {
                     <InputGroup className="d-flex align-items-center">
                       <Form.Control
                         type="text"
-                        defaultValue=""
                         name="ApiSecret"
                         placeholder="API Secret"
                         aria-label="API Secret"

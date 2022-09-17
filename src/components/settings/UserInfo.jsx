@@ -15,7 +15,6 @@ export default function UserInfo() {
     getData(parseJwt(token).id, setData);
   }, []);
 
-  console.log(data);
   return (
     <div className="container-fluid">
       <div className="merchant-secret">

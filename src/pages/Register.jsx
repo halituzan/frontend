@@ -5,6 +5,7 @@ import { ToastContainer, toast, Flip } from "react-toastify";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import "./index.css";
+import { secret } from "../helpers/keys";
 export default function Register() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -26,7 +27,7 @@ export default function Register() {
     try {
       const onjectAssign = Object.assign(values, { phone });
       const { data } = await axios.post(
-        "http://localhost:4000/register",
+        secret.SELF_DB + "/register",
         { ...onjectAssign },
         {
           withCredentials: true,

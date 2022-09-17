@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import axios from "axios";
 import "./index.css";
+import { secret } from "../helpers/keys";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Login() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/login",
+        secret.SELF_DB + "/login",
         {
           ...values,
         },

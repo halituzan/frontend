@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../components.css";
 import { FaMedal } from "react-icons/fa";
@@ -19,8 +17,10 @@ import { getData } from "../../helpers/db.helpers";
 
 const Home = () => {
   const [data, setData] = useState({});
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies(["jwt"]);
   const token = cookies.jwt;
+
+
   useEffect(() => {
     getData(jwt_decode(token).id, setData);
   }, []);
@@ -30,7 +30,7 @@ const Home = () => {
       <div className="row container m-auto">
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
           <div className="side-logo-1 d-flex justify-content-center align-items-center my-3">
-            <p className="side-logo-p">
+            <div className="side-logo-p text-center">
               {data.userRole !== "silver" ? (
                 <h2
                   style={{
@@ -56,7 +56,7 @@ const Home = () => {
               ) : (
                 <FaMedal style={{ fontSize: "10rem", color: "#c0c0c0" }} />
               )}
-            </p>
+            </div>
           </div>
           <p className="text-center">
             Hoş Geldin {data?.name?.toUpperCase()}{" "}
