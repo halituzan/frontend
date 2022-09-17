@@ -58,7 +58,7 @@ const Home = () => {
             </div>
           </div>
           <div className="text-center">
-            <p>Hoş Geldin {data?.name} {data?.surname}</p>
+            Hoş Geldin {data?.name} {data?.surname}
           </div>
           <div className="text-center">
             Hemen <Link to="/settings">Ayarlar</Link> Bölümüne Giderek Mağaza
@@ -75,9 +75,9 @@ const Home = () => {
 
           <h3> Ürünler</h3>
           <hr className="text-warning w-100" />
-          <p className="text-center">
+          <div className="text-center">
             Ürünlerinize Hızlıca Ulaşarak Kolaylıkla Düzenleyebilirsiniz.
-          </p>
+          </div>
         </div>
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
           <Link
@@ -89,10 +89,10 @@ const Home = () => {
 
           <h3> Ürün Grupları</h3>
           <hr className="text-warning w-100" />
-          <p className="text-center">
+          <div className="text-center">
             Ürün gruplarını tek bir alanda yönetebilir ve gruba ait ürünleri
             toplu bir şekilde güncelleyebilirsiniz.
-          </p>
+          </div>
         </div>
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
           <Link
@@ -104,10 +104,10 @@ const Home = () => {
 
           <h3> Grup Oluştur</h3>
           <hr className="text-warning w-100" />
-          <p className="text-center">
+          <div className="text-center">
             Ürünlerinizi toplu bir şekilde düzenlemeniz için ürün grupları
             oluşturabilirsiniz.
-          </p>
+          </div>
         </div>
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
           <Link className="side-a" to="/settings">
@@ -116,11 +116,11 @@ const Home = () => {
 
           <h3> Fiyat Rekabeti</h3>
           <hr className="text-warning w-100" />
-          <p className="text-center">
+          <div className="text-center">
             Ürünlerinizin Buybox sisteminde öne çıkarabilmeniz için
             tasarlanmıştır. Diğer mağazalar ile fiyatlarınızı karşılaştırarak
             otomatik fiyatlandırma yapmaktadır.
-          </p>
+          </div>
         </div>
         <div className="side d-flex col-12 col-sm-6 col-lg-4 col-xl-3 flex-column justify-content-start align-items-center bg-dark text-light mt-2">
           <Link
@@ -132,11 +132,11 @@ const Home = () => {
 
           <h3> Karlılık</h3>
           <hr className="text-warning w-100" />
-          <p className="text-center">
+          <div className="text-center">
             Ürünlerinizin alış fiyatlarını tanımlayarak hangi üründen ne kadar
             kar elde ettiğinizi kolaylıkla görebilir ve karlılık oranına göre
             fiyat değişimini yapabilirsiniz.
-          </p>
+          </div>
         </div>
       </div>
     </>
