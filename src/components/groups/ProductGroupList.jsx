@@ -91,11 +91,11 @@ export default function ProductGroupList() {
           let spreadData = { ...item };
 
           if (id === item.id) {
-            spreadData.groupBarcode = spreadData?.groupBarcode?.filter(
+            spreadData.groupBarcode = spreadData.groupBarcode.filter(
               (y) => y !== barcode
             );
           }
-          if (spreadData?.groupBarcode.length === 0) {
+          if (spreadData.groupBarcode.length === 0) {
             removeGroup(data.groups, index);
           }
           return spreadData;

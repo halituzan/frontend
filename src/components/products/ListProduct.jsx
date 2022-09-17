@@ -87,7 +87,7 @@ export default function ListProduct() {
   };
 
   const sendSingulerValue = (barcode, datas) => {
-    return deger?.content.map((d) => {
+    return deger.content.map((d) => {
       let items = [
         {
           barcode: barcode,
@@ -97,7 +97,7 @@ export default function ListProduct() {
         },
       ];
       return barcode === d.barcode
-        ? d?.listPrice < d?.salePrice
+        ? d.listPrice < d.salePrice
           ? toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.")
           : sendData(datas, items)
         : "";
@@ -110,7 +110,7 @@ export default function ListProduct() {
       //       quantity: d.quantity,
       //     },
       //   ];
-      //   if (d?.listPrice < d?.salePrice) {
+      //   if (d.listPrice < d.salePrice) {
       //     return toast.warning("Piyasa fiyatı, Satış Fiyatından düşük olamaz.");
       //   } else {
       //     sendData(datas, items);
@@ -170,136 +170,140 @@ export default function ListProduct() {
           </thead>
 
           <tbody>
-            {deger?.content
-              // ?.filter((st) => {
-              //     if (searchTitle !== "") {
-              //       return st?.title.toLowerCase().includes(searchTitle);
-              //     }
-              //     return st;
-              //   })
-              //   .filter((sb) => {
-              //     if (searchBarcode !== "") {
-              //       return sb?.barcode.toLowerCase().includes(searchBarcode);
-              //     }
-              //     return sb;
-              //   })
-              ?.map((p, index) => {
-                return (
-                  <tr
-                    key={index}
-                    className="d-flex row flex-direction justify-content-center align-items-start p-0 text-center table-body"
-                  >
-                    <td className="col-12 col-lg-3 align-self-center text-break">
-                      {p.title}
-                    </td>
-                    <td className="col-4 col-lg-2 align-self-center text-break">
-                      <Button
-                        variant="warning m-auto d-flex justify-content-center align-items-center"
-                        onClick={() => isTheGroup(p.barcode)}
+            {deger
+              ? deger.content
+                  // .filter((st) => {
+                  //     if (searchTitle !== "") {
+                  //       return st.title.toLowerCase().includes(searchTitle);
+                  //     }
+                  //     return st;
+                  //   })
+                  //   .filter((sb) => {
+                  //     if (searchBarcode !== "") {
+                  //       return sb.barcode.toLowerCase().includes(searchBarcode);
+                  //     }
+                  //     return sb;
+                  //   })
+                  .map((p, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        className="d-flex row flex-direction justify-content-center align-items-start p-0 text-center table-body"
                       >
-                        <FaLayerGroup className="fs-4" /> Grupla
-                      </Button>
-                      <ProductGroupModal
-                        show={p.isTheGroup}
-                        data={p}
-                        onHide={() => isTheGroupClosed(p.barcode)}
-                        index={index}
-                      />
-                    </td>
-                    <td className="col-4 col-lg-2 align-self-center text-break">
-                      {p.barcode}
-                    </td>
-                    <td className="col-4 col-lg-1 align-self-center text-break p-3">
-                      <img
-                        onError={({ currentTarget }) => {
-                          currentTarget.onerror = null; // prevents looping
-                          currentTarget.src =
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png";
-                        }}
-                        src={
-                          p?.images[0]?.url
-                            ? p?.images[0]?.url
-                            : p?.images[1]?.url
-                        }
-                        alt={p.title}
-                        className="w-100"
-                      />
-                    </td>
-                    <td className="col-4 col-lg-1 align-self-center text-break">
-                      <input
-                        type="number"
-                        name="quantity"
-                        max="20000"
-                        min="0"
-                        id={deger?.content[index]?.stockId}
-                        value={
-                          deger?.content[index]?.quantity > 20000
-                            ? 20000
-                            : deger?.content[index]?.quantity
-                        }
-                        onChange={(e) => changePrice(e.target, p.barcode)}
-                        onClick={() => editedEnable(p.barcode)}
-                        readOnly={
-                          deger?.content[index]?.isEdited ? "" : "readOnly"
-                        }
-                        className="form-control"
-                      />
-                    </td>
-                    <td className="col-4 col-lg-1 align-self-center text-break">
-                      <input
-                        type="number"
-                        name="listPrice"
-                        id={deger?.content[index]?.platformListingId}
-                        value={deger?.content[index]?.listPrice}
-                        onChange={(e) => changePrice(e.target, p.barcode)}
-                        onClick={() => editedEnable(p.barcode)}
-                        readOnly={
-                          deger?.content[index]?.isEdited ? "" : "readOnly"
-                        }
-                        className="form-control"
-                        style={
-                          deger?.content[index]?.listPrice >=
-                          deger?.content[index]?.salePrice
-                            ? { borderColor: "" }
-                            : { borderColor: "red" }
-                        }
-                      />
-                    </td>
-                    <td className="col-4 col-lg-1 align-self-center text-break">
-                      <input
-                        type="number"
-                        name="salePrice"
-                        id={deger?.content[index]?.id}
-                        value={deger?.content[index]?.salePrice}
-                        onChange={(e) => changePrice(e.target, p.barcode)}
-                        onClick={() => editedEnable(p.barcode)}
-                        readOnly={
-                          deger?.content[index]?.isEdited ? "" : "readOnly"
-                        }
-                        className="form-control"
-                        style={
-                          deger?.content[index]?.listPrice >=
-                          deger?.content[index]?.salePrice
-                            ? { borderColor: "" }
-                            : { borderColor: "red" }
-                        }
-                      />
-                    </td>
-                    <td className="col-12 col-lg-1 align-self-center text-break color-success">
-                      <Button
-                        variant="success"
-                        onClick={(e) => sendSingulerValue(p.barcode, datas)}
-                      >
-                        <AiOutlineSave
-                          className="icon-size-save"
-                          style={{ cursor: "pointer" }}
-                          onClick={(e) => sendSingulerValue(p.barcode, datas)}
-                        />
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
+                        <td className="col-12 col-lg-3 align-self-center text-break">
+                          {p.title}
+                        </td>
+                        <td className="col-4 col-lg-2 align-self-center text-break">
+                          <Button
+                            variant="warning m-auto d-flex justify-content-center align-items-center"
+                            onClick={() => isTheGroup(p.barcode)}
+                          >
+                            <FaLayerGroup className="fs-4" /> Grupla
+                          </Button>
+                          <ProductGroupModal
+                            show={p.isTheGroup}
+                            data={p}
+                            onHide={() => isTheGroupClosed(p.barcode)}
+                            index={index}
+                          />
+                        </td>
+                        <td className="col-4 col-lg-2 align-self-center text-break">
+                          {p.barcode}
+                        </td>
+                        <td className="col-4 col-lg-1 align-self-center text-break p-3">
+                          <img
+                            onError={({ currentTarget }) => {
+                              currentTarget.onerror = null; // prevents looping
+                              currentTarget.src =
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png";
+                            }}
+                            src={
+                              p.images[0].url
+                                ? p.images[0].url
+                                : p.images[1].url
+                            }
+                            alt={p.title}
+                            className="w-100"
+                          />
+                        </td>
+                        <td className="col-4 col-lg-1 align-self-center text-break">
+                          <input
+                            type="number"
+                            name="quantity"
+                            max="20000"
+                            min="0"
+                            id={deger.content[index].stockId}
+                            value={
+                              deger.content[index].quantity > 20000
+                                ? 20000
+                                : deger.content[index].quantity
+                            }
+                            onChange={(e) => changePrice(e.target, p.barcode)}
+                            onClick={() => editedEnable(p.barcode)}
+                            readOnly={
+                              deger.content[index].isEdited ? "" : "readOnly"
+                            }
+                            className="form-control"
+                          />
+                        </td>
+                        <td className="col-4 col-lg-1 align-self-center text-break">
+                          <input
+                            type="number"
+                            name="listPrice"
+                            id={deger.content[index].platformListingId}
+                            value={deger.content[index].listPrice}
+                            onChange={(e) => changePrice(e.target, p.barcode)}
+                            onClick={() => editedEnable(p.barcode)}
+                            readOnly={
+                              deger.content[index].isEdited ? "" : "readOnly"
+                            }
+                            className="form-control"
+                            style={
+                              deger.content[index].listPrice >=
+                              deger.content[index].salePrice
+                                ? { borderColor: "" }
+                                : { borderColor: "red" }
+                            }
+                          />
+                        </td>
+                        <td className="col-4 col-lg-1 align-self-center text-break">
+                          <input
+                            type="number"
+                            name="salePrice"
+                            id={deger.content[index].id}
+                            value={deger.content[index].salePrice}
+                            onChange={(e) => changePrice(e.target, p.barcode)}
+                            onClick={() => editedEnable(p.barcode)}
+                            readOnly={
+                              deger.content[index].isEdited ? "" : "readOnly"
+                            }
+                            className="form-control"
+                            style={
+                              deger.content[index].listPrice >=
+                              deger.content[index].salePrice
+                                ? { borderColor: "" }
+                                : { borderColor: "red" }
+                            }
+                          />
+                        </td>
+                        <td className="col-12 col-lg-1 align-self-center text-break color-success">
+                          <Button
+                            variant="success"
+                            onClick={(e) => sendSingulerValue(p.barcode, datas)}
+                          >
+                            <AiOutlineSave
+                              className="icon-size-save"
+                              style={{ cursor: "pointer" }}
+                              onClick={(e) =>
+                                sendSingulerValue(p.barcode, datas)
+                              }
+                            />
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })
+              : ""}
           </tbody>
         </Table>
       )}
