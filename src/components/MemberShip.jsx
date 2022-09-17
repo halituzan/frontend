@@ -32,7 +32,7 @@ const BankaBilgileri = () => {
       aciklama: "Siteye üye olduğunuz isim soy isim yazılmalıdır",
     },
   ]);
-  return bankalar?.map((bank, i) => {
+  return bankalar.map((bank, i) => {
     return (
       <div key={i} className="mb-5 border-bottom border-2 border-warning">
         <img src={bank.image} alt={bank.bankaAdi} className="img-fluid mb-5" />

@@ -178,13 +178,13 @@ export default function ProductGroupList() {
   /* -------- Render -------- */
   return (
     <div className="row">
-      {groups?.length === 0 ? (
+      {groups.length === 0 ? (
         <GroupsNotFound />
       ) : (
-        groups?.map((g, i) => (
-          <Accordion.Item key={g?.id} eventKey={i} className="col-12 col-xl-6">
+        groups.map((g, i) => (
+          <Accordion.Item key={g.id} eventKey={i} className="col-12 col-xl-6">
             <Accordion.Header className="w-100">
-              <p className="my-1 fs-3 text-warning">{g?.groupName}</p>
+              <p className="my-1 fs-3 text-warning">{g.groupName}</p>
             </Accordion.Header>
             <Accordion.Body className="w-100 row d-flex my-2">
               <div className="header-acordion d-flex">
@@ -227,7 +227,7 @@ export default function ProductGroupList() {
                     <Form.Control
                       type="number"
                       name="listPrice"
-                      value={g?.listPrice}
+                      value={g.listPrice}
                       onChange={(e) => groupValueHandle(e, i)}
                       className="col-12 col-md-4"
                     />
@@ -240,7 +240,7 @@ export default function ProductGroupList() {
                       className="col-12 col-md-4"
                       type="number"
                       name="salePrice"
-                      value={g?.salePrice}
+                      value={g.salePrice}
                       onChange={(e) => groupValueHandle(e, i)}
                     />
                   </Form.Group>
@@ -265,7 +265,7 @@ export default function ProductGroupList() {
                       max="20000"
                       min="0"
                       className="col-12 col-md-4"
-                      value={g?.quantity}
+                      value={g.quantity}
                       onChange={(e) => groupValueHandle(e, i)}
                     />
                   </Form.Group>
@@ -282,14 +282,14 @@ export default function ProductGroupList() {
               </div>
               <hr className="my-2" />
               <div className="row">
-                {g?.groupBarcode?.map((b, indi) => (
+                {g.groupBarcode.map((b, indi) => (
                   <div
                     className="col-12 d-flex flex-column justify-content-between"
                     key={indi}
                   >
-                    {datas?.content
-                      ?.filter((p, i) => p.barcode === b)
-                      ?.map((items, ind) => (
+                    {datas.content
+                      .filter((p, i) => p.barcode === b)
+                      .map((items, ind) => (
                         <div
                           key={ind}
                           className="d-flex justify-content-between align-items-center text-wrap w-100 position-relative"
@@ -305,7 +305,7 @@ export default function ProductGroupList() {
                           <div className="d-flex justify-content-start w-100 align-items-start">
                             <div className="image-info align-self-center">
                               <img
-                                src={items?.images[0].url}
+                                src={items.images[0].url}
                                 alt={items.title}
                                 className="align-self-baseline product-image"
                               />

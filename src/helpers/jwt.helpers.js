@@ -1,6 +1,6 @@
 export function parseJwt(token) {
-  var base64Url = token?.split(".")[1];
-  var base64 = base64Url?.replace(/-/g, "+").replace(/_/g, "/");
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   var jsonPayload = decodeURIComponent(
     window
       .atob(base64)
@@ -14,8 +14,8 @@ export function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 export function parseSecrets(secret) {
-  var base64Url = secret?.split(".")[1];
-  var base64 = base64Url?.replace(/-/g, "+").replace(/_/g, "/");
+  var base64Url = secret.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   var jsonPayload = decodeURIComponent(
     window
       .atob(base64)
