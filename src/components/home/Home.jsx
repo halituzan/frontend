@@ -58,8 +58,7 @@ const Home = () => {
             </div>
           </div>
           <div className="text-center">
-            Hoş Geldin {data?.name?.toUpperCase()}{" "}
-            {data?.surname?.toUpperCase()}
+            Hoş Geldin {data?.name} {data?.surname}
           </div>
           <div className="text-center">
             Hemen <Link to="/settings">Ayarlar</Link> Bölümüne Giderek Mağaza
