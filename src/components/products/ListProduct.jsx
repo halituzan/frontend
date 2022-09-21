@@ -171,7 +171,7 @@ export default function ListProduct() {
           </thead>
 
           <tbody>
-            {deger.content
+            {deger?.content
               // .filter((st) => {
               //     if (searchTitle !== "") {
               //       return st.title.toLowerCase().includes(searchTitle);
