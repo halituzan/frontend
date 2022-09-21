@@ -3,7 +3,7 @@ import { secret } from "./keys";
 
 export const setMerchantData = async (merchant) => {
   await axios.put(
-    `${secret.SELF_DB}/merchant/${merchant._id}`,
+    `${secret.END_POINT_SELF}/merchant/${merchant._id}`,
     {
       merchantID: merchant.merchantID,
       ApiKey: merchant.ApiKey,
@@ -14,7 +14,7 @@ export const setMerchantData = async (merchant) => {
 };
 export const setProfileImage = async (merchant, images, isActive) => {
   await axios.put(
-    `${secret.SELF_DB}/profile-image/${merchant._id}`,
+    `${secret.END_POINT_SELF}/profile-image/${merchant._id}`,
     {
       profileImage: images,
       profileActive: isActive
@@ -24,7 +24,7 @@ export const setProfileImage = async (merchant, images, isActive) => {
 };
 export const setGroupData = async (id, group) => {
   await axios.put(
-    `${secret.SELF_DB}/groups/${id}`,
+    `${secret.END_POINT_SELF}/groups/${id}`,
     {
       groups: {
         id: group.id,
@@ -40,7 +40,7 @@ export const setGroupData = async (id, group) => {
 };
 export const updateGroupItems = async (values) => {
   await axios.put(
-    `${secret.SELF_DB}/update-groups/${values._id}`,
+    `${secret.END_POINT_SELF}/update-groups/${values._id}`,
     {
       groups: values.groups,
     },
@@ -49,6 +49,6 @@ export const updateGroupItems = async (values) => {
 };
 
 export const getData = async (id, set) => {
-  const { data } = await axios.get(`${secret.SELF_DB}/info/${id}`);
+  const { data } = await axios.get(`${secret.END_POINT_SELF}/info/${id}`);
   set(data);
 };
