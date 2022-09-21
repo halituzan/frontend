@@ -178,7 +178,7 @@ export default function ProductGroupList() {
   /* -------- Render -------- */
   return (
     <div className="row">
-      {groups.length === 0 ? (
+      {groups?.length === 0 ? (
         <GroupsNotFound />
       ) : (
         groups.map((g, i) => (

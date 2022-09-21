@@ -21,7 +21,6 @@ export default function ListProduct() {
   const [showSearch, setShowSearch] = useState(false);
   const [cookies, setCookie] = useCookies();
   const token = cookies.jwt;
-  console.log(deger);
   useEffect(() => {
     if (token) {
       getData(jwt_decode(token).id, setDatas);
@@ -120,7 +119,7 @@ export default function ListProduct() {
       // }
     });
   };
-  console.log(deger);
+
   return (
     <div className="container d-flex flex-column m-auto">
       <div className="col-2 align-self-end fixed-bottom search-button-up">

@@ -9,7 +9,7 @@ export default function MerchantInfo() {
   const [eye, setEye] = useState(true);
   const [lock, setLock] = useState(true);
   const [settingsValue, setSettingsValue] = useState({});
-console.log(settingsValue);
+
   const [cookies, setCookie] = useCookies();
   const token = cookies.jwt;
   useEffect(() => {
