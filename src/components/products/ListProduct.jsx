@@ -21,6 +21,7 @@ export default function ListProduct() {
   const [showSearch, setShowSearch] = useState(false);
   const [cookies, setCookie] = useCookies();
   const token = cookies.jwt;
+  console.log(deger);
   useEffect(() => {
     if (token) {
       getData(jwt_decode(token).id, setDatas);
