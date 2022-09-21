@@ -1,17 +1,17 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.use(
-    '/ty',
+    "/ty",
     createProxyMiddleware({
-      target: 'https://api.trendyol.com',
+      target: "https://api.trendyol.com",
       changeOrigin: true,
     })
   );
   app.use(
-    '/self',
+    "/self",
     createProxyMiddleware({
-      target: 'http://3.129.59.0:4000',
+      target: "http://18.118.241.229:4000",
       changeOrigin: true,
     })
   );
