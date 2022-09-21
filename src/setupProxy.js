@@ -8,7 +8,7 @@ module.exports = function (app) {
     })
   );
   app.use(
-    createProxyMiddleware("/login", {
+    createProxyMiddleware("/apiv1", {
       target: "http://18.118.241.229:4000/",
       changeOrigin: true,
       headers: {
