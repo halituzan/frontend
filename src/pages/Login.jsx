@@ -19,8 +19,8 @@ export default function Login() {
 
     try {
       const { data } = await axios.post(
-        `${secret.SELF_DB}/login`,
-        // "/self/login",
+         `${secret.END_POINT_SELF}/login`,
+        // "/apiv1/login",
         {
           ...values,
         },

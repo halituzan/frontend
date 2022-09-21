@@ -2,17 +2,18 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(
-    "/ty",
-    createProxyMiddleware({
+    createProxyMiddleware("/ty", {
       target: "https://api.trendyol.com",
       changeOrigin: true,
     })
   );
   app.use(
-    "/self",
-    createProxyMiddleware({
-      target: "http://18.118.241.229:4000",
+    createProxyMiddleware("/login", {
+      target: "http://18.118.241.229:4000/",
       changeOrigin: true,
+      headers: {
+        accept: "application/json",
+      },
     })
   );
 };

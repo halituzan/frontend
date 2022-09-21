@@ -27,7 +27,7 @@ export default function Register() {
     try {
       const onjectAssign = Object.assign(values, { phone });
       const { data } = await axios.post(
-        secret.SELF_DB + "/register",
+        `${secret.END_POINT_SELF}/register`,
         { ...onjectAssign },
         {
           withCredentials: true,
