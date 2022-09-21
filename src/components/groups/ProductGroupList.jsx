@@ -287,8 +287,8 @@ export default function ProductGroupList() {
                     className="col-12 d-flex flex-column justify-content-between"
                     key={indi}
                   >
-                    {datas.content
-                      .filter((p, i) => p.barcode === b)
+                    {datas?.content
+                      ?.filter((p, i) => p.barcode === b)
                       .map((items, ind) => (
                         <div
                           key={ind}
