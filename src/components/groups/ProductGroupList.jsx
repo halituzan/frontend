@@ -181,7 +181,7 @@ export default function ProductGroupList() {
       {groups?.length === 0 ? (
         <GroupsNotFound />
       ) : (
-        groups.map((g, i) => (
+        groups?.map((g, i) => (
           <Accordion.Item key={g.id} eventKey={i} className="col-12 col-xl-6">
             <Accordion.Header className="w-100">
               <p className="my-1 fs-3 text-warning">{g.groupName}</p>
