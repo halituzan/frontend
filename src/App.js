@@ -18,8 +18,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/auth/register" element={<Register />} />
-        <Route exact path="/auth/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/" element={<Dashboard />} />
         <Route exact path="/settings" element={<Settings />} />
         <Route exact path="/product-groups" element={<ProductGroups />} />
