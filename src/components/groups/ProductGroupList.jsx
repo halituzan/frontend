@@ -282,7 +282,7 @@ export default function ProductGroupList() {
               </div>
               <hr className="my-2" />
               <div className="row">
-                {g.groupBarcode.map((b, indi) => (
+                {g.groupBarcode?.map((b, indi) => (
                   <div
                     className="col-12 d-flex flex-column justify-content-between"
                     key={indi}
