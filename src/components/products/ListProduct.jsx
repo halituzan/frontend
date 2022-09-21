@@ -184,7 +184,7 @@ export default function ListProduct() {
               //     }
               //     return sb;
               //   })
-              .map((p, index) => {
+              ?.map((p, index) => {
                 return (
                   <tr
                     key={index}
