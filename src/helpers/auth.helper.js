@@ -7,7 +7,7 @@ export const authHelpers = (cookies, removeCookies, navigate) => {
       navigate("/login");
     } else {
       const { data } = await axios.post(
-        secret.SELF_DB,
+        secret.END_POINT_SELF,
         {},
         { withCredentials: true }
       );
